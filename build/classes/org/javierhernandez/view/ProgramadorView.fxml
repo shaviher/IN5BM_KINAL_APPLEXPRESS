@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierhernandez.controller.MenuProgramadorController">
+   <children>
+      <ImageView fitHeight="587.0" fitWidth="1020.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagen/MenuProgramador.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnRegresar" layoutX="815.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="132.0" stylesheets="@../resource/manzanitacss.css" text="Regresar " textAlignment="JUSTIFY">
+         <styleClass>
+            <String fx:value="button-predeterminado" />
+            <String fx:value="button-pulsacion" />
+            <String fx:value="button-sombra" />
+         </styleClass>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagen/arrow_14744703.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

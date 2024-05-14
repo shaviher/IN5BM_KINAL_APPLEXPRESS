@@ -1,0 +1,111 @@
+.transparent-rectangle {
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-border-color: transparent; /* Borde transparente */
+    -fx-border-width: 2px; /* Grosor del borde */
+    -fx-border-radius: 5px; /* Radio de borde */
+    -fx-padding: 10px; /* Relleno interno del cuadro */
+    -fx-font-size: 12px; /* Tamaño de la fuente */
+}
+
+.transparent-rectangle2 {
+    -fx-font-size: 18px; /* Tamaño de la fuente */
+    -fx-font-weight: bold; /* Fuente en negrita */
+}
+
+/* Estilo para el efecto de iluminación al pasar el ratón */
+.transparent-rectangle:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.5), 8, 0, 0, 0); /* Efecto de sombra al pasar el ratón */
+}
+
+.table-view {
+    -fx-background-color: #7F0000;
+    -fx-text-fill:#ECE3CB;
+}
+
+/* Estilo para iluminar al pasar el mouse */
+.table-row-cell:hover {
+    -fx-background-color: rgba(236, 227, 203, 0.5); /* Color de fondo al pasar el mouse */
+    -fx-text-fill:#ECE3CB;
+}
+
+/* Establecer el fondo y el color de texto para los botones */ /*Estilo #1*/
+.button-predeterminado {
+    -fx-background-color: #ECE3CB; /* Color de fondo */
+    -fx-text-fill: #000; /* Color de texto */
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-border-radius: 12px;
+}
+
+/* Efecto de sombra al pasar el mouse */ /*Estilo #1*/
+.button-sombra:hover {
+    -fx-background-color: #7F0000; /* Cambiar color de fondo */
+    -fx-border-color: #7F0000; /* Cambiar color del borde */
+    -fx-text-fill: #ECE3CB;
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-border-radius: 12px;
+
+}
+
+/* Efecto de pulsación */ /*Estilo #1*/
+.button-pulsacion:pressed {
+    -fx-background-color: #ECE3CB; /* Cambiar color de fondo al presionar */
+    -fx-border-color: #ECE3CB;
+    -fx-text-fill: #000;
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-border-radius: 12px;
+}
+
+/* Estilo para el TextField */
+.textfield-personalizado {
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-text-fill: #000; /* Color del texto (azul en este caso) */
+    -fx-background-color: #ECE3CB; /* Color de fondo del TextField */
+    -fx-background-radius: 12px; /* Radio de borde del TextField */
+    -fx-border-color: transparent; /* Color del borde del TextField */
+    -fx-border-width: 1px; /* Ancho del borde del TextField */
+    -fx-padding: 5px; /* Espaciado interno del TextField */
+}
+
+.textfield-sombra:hover {
+    -fx-background-color: #7F0000; /* Cambiar color de fondo */
+    -fx-border-color: #7F0000; /* Cambiar color del borde */
+    -fx-text-fill: #ECE3CB;
+    -fx-border-color: transparent; /* Color del borde del TextField */
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-background-radius: 12px; /* Radio de borde del TextField */
+
+}
+
+.label-personalizado{
+    -fx-background-color: #F2F0C9; /* Color de fondo del label */
+    -fx-text-fill: #000;
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-font-size: 12px; /* Tamaño de la fuente */
+    -fx-background-radius: 12px; /* Radio de borde del TextField */
+    -fx-border: 12px;
+    -fx-border-color: transparent; /* Color del borde del TextField */
+}
+
+.label-sombra:hover {
+    -fx-background-color: #7F0000; /* Cambiar color de fondo */
+    -fx-border-color: #7F0000; /* Cambiar color del borde */
+    -fx-text-fill: #ECE3CB;
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-background-radius: 12px; /* Radio de borde del TextField */
+    -fx-border-color: transparent; /* Color del borde del TextField */
+
+}
+
+.boton-agrandable {
+    -fx-border: none;
+    -fx-cursor: pointer;
+    -fx-transition: all 0.3s ease; /* Transición suave de todos los estilos */
+}
+
+.boton-agrandable:hover {
+    -fx-font-size: 16px; /* Tamaño más grande cuando se pasa el mouse */
+    -fx-padding: 14px 26px; /* Mayor espacio alrededor del texto */
+    -fx-border-color: transparent; /* Color del borde del TextField */
+
+}
+

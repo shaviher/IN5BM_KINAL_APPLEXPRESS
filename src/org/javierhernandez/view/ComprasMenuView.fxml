@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierhernandez.controller.MenuCompraController">
+   <children>
+      <ImageView fitHeight="587.0" fitWidth="1020.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagen/MenuCompras.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblCompras" layoutX="102.0" layoutY="166.0" onMouseClicked="#seleccionarElementoCompras" prefHeight="246.0" prefWidth="612.0" stylesheets="@../resource/manzanitacss.css">
+         <columns>
+            <TableColumn fx:id="colIDC" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" text="ID" />
+            <TableColumn fx:id="colfechaC" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" text="Fecha Documento" />
+            <TableColumn fx:id="coldescripcionC" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" text="Descripcion" />
+            <TableColumn fx:id="coltotalDocumentoC" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" text="Total Documento" />
+         </columns>
+         <styleClass>
+            <String fx:value="table-row-cell" />
+            <String fx:value="table-row-cell" />
+         </styleClass>
+      </TableView>
+      <GridPane layoutX="751.0" layoutY="166.0" prefHeight="370.0" prefWidth="182.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="btnAgregarCo" mnemonicParsing="false" onAction="#AgregarCompras" prefHeight="64.0" prefWidth="214.0" stylesheets="@../resource/manzanitacss.css" text="Agregar" GridPane.rowIndex="2">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="button-predeterminado" />
+                  <String fx:value="button-pulsacion" />
+                  <String fx:value="button-sombra" />
+                  <String fx:value="boton-agrandable" />
+               </styleClass>
+               <graphic>
+                  <ImageView fx:id="imgAgregarCliente" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagen/Guardar2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnEditarCo" mnemonicParsing="false" onAction="#editarCompras" prefHeight="64.0" prefWidth="217.0" stylesheets="@../resource/manzanitacss.css" text="Editar">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="button-predeterminado" />
+                  <String fx:value="button-pulsacion" />
+                  <String fx:value="button-sombra" />
+                  <String fx:value="boton-agrandable" />
+               </styleClass>
+               <graphic>
+                  <ImageView fx:id="imgEditarCliente" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagen/actualizar2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnEliminarCo" maxHeight="122.0" maxWidth="218.0" mnemonicParsing="false" onAction="#EliminarCompra" prefHeight="64.0" prefWidth="218.0" stylesheets="@../resource/manzanitacss.css" text="Eliminar" GridPane.rowIndex="1">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="button-predeterminado" />
+                  <String fx:value="button-pulsacion" />
+                  <String fx:value="button-sombra" />
+                  <String fx:value="boton-agrandable" />
+               </styleClass>
+               <graphic>
+                  <ImageView fx:id="imgEliminarCliente" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagen/Delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnReportesCo" mnemonicParsing="false" onAction="#cancelarAccion" prefHeight="64.0" prefWidth="224.0" stylesheets="@../resource/manzanitacss.css" text="Reportes" GridPane.rowIndex="3">
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="button-predeterminado" />
+                  <String fx:value="button-pulsacion" />
+                  <String fx:value="button-sombra" />
+                  <String fx:value="boton-agrandable" />
+               </styleClass>
+               <graphic>
+                  <ImageView fx:id="imgReportesCliente" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagen/reportes2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnRegresarCo" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="64.0" prefWidth="188.0" stylesheets="@../resource/manzanitacss.css" text="Regresar " textAlignment="JUSTIFY" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="button-predeterminado" />
+                  <String fx:value="button-pulsacion" />
+                  <String fx:value="button-sombra" />
+                  <String fx:value="boton-agrandable" />
+               </styleClass>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagen/Regresar2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </GridPane>
+      <GridPane layoutX="84.0" layoutY="446.0" prefHeight="100.0" prefWidth="629.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="66.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="48.0" minHeight="48.0" percentHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="48.0" minHeight="48.0" percentHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="168.0" text="ID" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="label-personalizado" />
+                  <String fx:value="label-sombra" />
+               </styleClass>
+               <stylesheets>
+                  <URL value="@../resource/manzanitacss.css" />
+                  <URL value="@../resource/manzanitacss.css" />
+               </stylesheets>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="212.0" stylesheets="@../resource/manzanitacss.css" text="Fecha Documentacion" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-personalizado" />
+                  <String fx:value="label-sombra" />
+               </styleClass>
+               <opaqueInsets>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtComprasID" layoutX="500.0" layoutY="150.0" prefHeight="123.0" prefWidth="196.0" stylesheets="@../resource/manzanitacss.css" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="textfield-personalizado" />
+                  <String fx:value="textfield-sombra" />
+               </styleClass>
+            </TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="184.0" stylesheets="@../resource/manzanitacss.css" text="Descripcion" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-personalizado" />
+                  <String fx:value="label-sombra" />
+               </styleClass>
+               <opaqueInsets>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <DatePicker fx:id="txtFechaCompras" prefHeight="48.0" prefWidth="227.0" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></DatePicker>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="214.0" stylesheets="@../resource/manzanitacss.css" text="Total Documentado" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-personalizado" />
+                  <String fx:value="label-sombra" />
+               </styleClass>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtTotalCompras" prefHeight="67.0" prefWidth="227.0" stylesheets="@../resource/manzanitacss.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="textfield-personalizado" />
+                  <String fx:value="textfield-sombra" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtDescripcionCompras" prefHeight="61.0" prefWidth="193.0" stylesheets="@../resource/manzanitacss.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="textfield-personalizado" />
+                  <String fx:value="textfield-sombra" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
