@@ -17,6 +17,7 @@ import org.javierhernandez.controller.MenuProveedoresController;
 import org.javierhernandez.controller.MenuCargoEmpleadoController;
 import org.javierhernandez.controller.MenuTipoProductoController;
 import org.javierhernandez.controller.MenuProductosController;
+import org.javierhernandez.controller.MenuFacturaController;
 
 public class Main extends Application {
 
@@ -117,6 +118,15 @@ public class Main extends Application {
         try{
             MenuProductosController menuProductosView = (MenuProductosController) cambiarEscena("ProductosMenuView.fxml",1020,587);
             menuProductosView.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuFacturaView(){
+        try{
+            MenuFacturaController menuFacturaView = (MenuFacturaController) cambiarEscena("FacturaMenuView.fxml",1020,587);
+            menuFacturaView.setEscenarioPrincipal(this);
         }catch(Exception e){
             e.printStackTrace();
         }

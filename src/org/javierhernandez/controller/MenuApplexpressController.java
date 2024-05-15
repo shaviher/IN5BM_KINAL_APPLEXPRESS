@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.javierhernandez.controller;
 
 import java.net.URL;
@@ -35,7 +30,8 @@ public class MenuApplexpressController implements Initializable {
     MenuItem btnMenuTipoProducto;
     @FXML 
     MenuItem btnMenuProductos;
-    
+    @FXML 
+    MenuItem btnMenuFactura;
     
     
     @Override
@@ -67,6 +63,8 @@ public class MenuApplexpressController implements Initializable {
             escenarioPrincipal.menuTipoProductoView();
         }else if(event.getSource() == btnMenuProductos){
             escenarioPrincipal.menuProductosView();
+        }else if(event.getSource() == btnMenuFactura){
+            escenarioPrincipal.menuFacturaView();
             
         }
     }
