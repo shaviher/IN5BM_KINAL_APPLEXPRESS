@@ -42,7 +42,7 @@
           <Menu mnemonicParsing="false" text="Clientes">
             <items>
               <MenuItem fx:id="btnMenuClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes" />
-                  <MenuItem mnemonicParsing="false" text="Empleados" />
+                  <MenuItem fx:id="btnMenuEmpleados" mnemonicParsing="false" onAction="#handleButtonAction" text="Empleados" />
                   <MenuItem fx:id="btnMenuCargoEmpleados" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargo Empleado" />
             </items>
                <graphic>
@@ -57,8 +57,8 @@
               <items>
                   <MenuItem fx:id="btnMenuFactura" mnemonicParsing="false" onAction="#handleButtonAction" text="Factura" />
                   <MenuItem fx:id="btnMenuCompras" mnemonicParsing="false" onAction="#handleButtonAction" text="Compras" />
-                  <MenuItem mnemonicParsing="false" text="Detalle Factura " />
-                <MenuItem mnemonicParsing="false" text="Detalle Compras" />
+                  <MenuItem fx:id="btnMenuDF" mnemonicParsing="false" onAction="#handleButtonAction" text="Detalle Factura " />
+                <MenuItem fx:id="btnMenuDC" mnemonicParsing="false" onAction="#handleButtonAction" text="Detalle Compras" />
               </items>
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -73,8 +73,8 @@
               <MenuItem fx:id="btnMenuProductos" mnemonicParsing="false" onAction="#handleButtonAction" text="Productos" />
                   <MenuItem fx:id="btnMenuProveedores" mnemonicParsing="false" onAction="#handleButtonAction" text="Proveedores " />
                   <MenuItem fx:id="btnMenuTipoProducto" mnemonicParsing="false" onAction="#handleButtonAction" text="Tipo de Producto " />
-                  <MenuItem mnemonicParsing="false" text="Telefono Proveedor" />
-                  <MenuItem mnemonicParsing="false" text="Email Proveedor" />
+                  <MenuItem fx:id="btnMenuTelePro" mnemonicParsing="false" onAction="#handleButtonAction" text="Telefono Proveedor" />
+                  <MenuItem fx:id="btnMenuEmalPro" mnemonicParsing="false" onAction="#handleButtonAction" text="Email Proveedor" />
             </items>
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -89,6 +89,9 @@
             <String fx:value="transparent-rectangle" />
             <String fx:value="transparent-rectangle2" />
          </styleClass>
+         <opaqueInsets>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </opaqueInsets>
       </MenuBar>
    </children>
 </AnchorPane>

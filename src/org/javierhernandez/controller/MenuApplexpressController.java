@@ -20,20 +20,29 @@ public class MenuApplexpressController implements Initializable {
     MenuItem btnMenuClientes;
     @FXML
     MenuItem btnProgra;
-    @FXML 
+    @FXML
     MenuItem btnMenuCompras;
     @FXML
     MenuItem btnMenuProveedores;
-    @FXML 
+    @FXML
     MenuItem btnMenuCargoEmpleados;
-    @FXML 
+    @FXML
     MenuItem btnMenuTipoProducto;
-    @FXML 
+    @FXML
     MenuItem btnMenuProductos;
-    @FXML 
+    @FXML
     MenuItem btnMenuFactura;
-    
-    
+    @FXML
+    MenuItem btnMenuEmpleados;
+    @FXML
+    MenuItem btnMenuDF;
+    @FXML
+    MenuItem btnMenuDC;
+    @FXML
+    MenuItem btnMenuTelePro;
+    @FXML
+    MenuItem btnMenuEmalPro;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -53,19 +62,29 @@ public class MenuApplexpressController implements Initializable {
             escenarioPrincipal.menuClientesView();
         } else if (event.getSource() == btnProgra) {
             escenarioPrincipal.ProgramadorView();
-        }else if(event.getSource() == btnMenuCompras){
+        } else if (event.getSource() == btnMenuCompras) {
             escenarioPrincipal.menuComprasView();
-        }else if(event.getSource() == btnMenuProveedores){
+        } else if (event.getSource() == btnMenuProveedores) {
             escenarioPrincipal.menuProveedoresView();
-        }else if(event.getSource() == btnMenuCargoEmpleados){
+        } else if (event.getSource() == btnMenuCargoEmpleados) {
             escenarioPrincipal.menuCargoEmpleadosView();
-        }else if(event.getSource() == btnMenuTipoProducto){
+        } else if (event.getSource() == btnMenuTipoProducto) {
             escenarioPrincipal.menuTipoProductoView();
-        }else if(event.getSource() == btnMenuProductos){
+        } else if (event.getSource() == btnMenuProductos) {
             escenarioPrincipal.menuProductosView();
-        }else if(event.getSource() == btnMenuFactura){
+        } else if (event.getSource() == btnMenuFactura) {
             escenarioPrincipal.menuFacturaView();
-            
+        } else if (event.getSource() == btnMenuEmpleados) {
+            escenarioPrincipal.menuEmpleadosView();
+        } else if (event.getSource() == btnMenuDF) {
+            escenarioPrincipal.menuDetalleCompraView();
+        } else if (event.getSource() == btnMenuDC) {
+            escenarioPrincipal.menuDetalleCompraView();
+        } else if (event.getSource() == btnMenuTelePro) {
+            escenarioPrincipal.menuTelefonoProveedorView();
+        } else if (event.getSource() == btnMenuEmalPro) {
+            escenarioPrincipal.menuEmailProveedorView();
+
         }
     }
 }

@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierhernandez.controller.MenuProductosController">
    <children>
       <GridPane layoutX="90.0" layoutY="451.0" prefHeight="90.0" prefWidth="615.0">
@@ -353,12 +352,12 @@
                   <String fx:value="textfield-sombra" />
                </styleClass>
             </TextField>
-            <ComboBox prefHeight="82.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ComboBox fx:id="cmbIDTipoProducto" prefHeight="82.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox prefHeight="85.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ComboBox fx:id="cmbIDProveedor" prefHeight="85.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>

@@ -18,6 +18,11 @@ import org.javierhernandez.controller.MenuCargoEmpleadoController;
 import org.javierhernandez.controller.MenuTipoProductoController;
 import org.javierhernandez.controller.MenuProductosController;
 import org.javierhernandez.controller.MenuFacturaController;
+import org.javierhernandez.controller.MenuEmpleadosController;
+import org.javierhernandez.controller.MenuDetalleCompraController;
+import org.javierhernandez.controller.MenuDetalleFacturaController;
+import org.javierhernandez.controller.MenuTelefonoProveedorController;
+import org.javierhernandez.controller.MenuEmailProveedorController;
 
 public class Main extends Application {
 
@@ -132,6 +137,51 @@ public class Main extends Application {
         }
     }
     
+    public void menuEmpleadosView(){
+        try{
+            MenuEmpleadosController menuEmpleadosView = (MenuEmpleadosController) cambiarEscena("EmpleadosMenuView.fxml",1020,587);
+            menuEmpleadosView.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuDetalleCompraView(){
+        try{
+            MenuDetalleCompraController menuDetalleCompraView = (MenuDetalleCompraController) cambiarEscena("DetalleCompraMenuView.fxml",1020,587);
+            menuDetalleCompraView.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuDetalleFacturaView(){
+        try{
+            MenuDetalleFacturaController menuDetalleFacturaView = (MenuDetalleFacturaController) cambiarEscena("MenuDetalleFacturaController",1020,587);
+            menuDetalleFacturaView.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuTelefonoProveedorView(){
+        try{
+            MenuTelefonoProveedorController menuTelefonoProveedorView = (MenuTelefonoProveedorController) cambiarEscena("TelefonoProveedorView.fxml", 1020,587);
+            menuTelefonoProveedorView.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuEmailProveedorView(){
+        try{
+            MenuEmailProveedorController menuEmailProveedorView = (MenuEmailProveedorController) cambiarEscena("EmailProveedorView.fxml",1020,587);
+            menuEmailProveedorView.setEscenarioPrincipal(this);
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+    }
+  
     public static void main(String[] args) {
         launch(args);
     }
