@@ -65,7 +65,6 @@ create table Productos(
 	precioUnitario decimal(10,2),
 	precioDocena decimal(10,2),
 	precioMayor decimal(10,2),
-	imagenProducto varchar(45),
 	existencia int,
 	idTipoProducto int,
 	IDProveedores int,
@@ -173,14 +172,13 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Listar Proveedores
 DELIMITER $$
 CREATE PROCEDURE sp_ListarProveedores ()
 BEGIN
-    SELECT IDProveedores, nitProveedor, nombreProveedor, apellidoProveedor, direccionProveedor, razonSocial, contactoPrincipal, paginaWeb
-    FROM Proveedores;
+    SELECT * FROM Proveedores;
 END$$
 DELIMITER ;
+
 
 -- Actualizar Proveedor
 DELIMITER $$
@@ -208,6 +206,14 @@ BEGIN
     DELETE FROM Proveedores WHERE IDProveedores = IDProveedores;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarProveedor(IN IDProveedores int)
+BEGIN
+    SELECT * FROM Proveedores WHERE IDProveedores = IDProveedores;
+END$$
+DELIMITER ;
+
 
 -------------------------------------- Compras
 -- Agregar Compras
@@ -260,12 +266,10 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Listar Tipo Producto
 DELIMITER $$
 CREATE PROCEDURE sp_ListarTipoProducto ()
 BEGIN
-    SELECT idTipoProducto, descripcion
-    FROM TipoProducto;
+    SELECT * FROM TipoProducto;
 END$$
 DELIMITER ;
 
@@ -287,6 +291,14 @@ BEGIN
     DELETE FROM TipoProducto WHERE idTipoProducto = idTipoProducto;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarTipoProducto(IN idTipoProducto int)
+BEGIN
+    SELECT * FROM TipoProducto WHERE idTipoProducto = idTipoProducto;
+END$$
+DELIMITER ;
+
 
 -------------------------------------------- CargoEmpleado
 -- Agregar CargoEmpleado
@@ -347,6 +359,7 @@ BEGIN
     FROM TelefonoProveedor;
 END$$
 DELIMITER ;
+
 
 -- Actualizar telefono 
 DELIMITER $$
@@ -415,10 +428,10 @@ DELIMITER ;
 -- Agregar Producto
 DELIMITER $$
 CREATE PROCEDURE sp_AgregarProducto(IN IDProducto INT, IN descripcionProducto VARCHAR(40), IN precioUnitario DECIMAL(10,2), 
-IN precioDocena DECIMAL(10,2), IN precioMayor DECIMAL(10,2), IN imagenProducto VARCHAR(45), IN existencia INT, IN idTipoProducto INT, IN IDProveedores INT)
+IN precioDocena DECIMAL(10,2), IN precioMayor DECIMAL(10,2), IN existencia INT, IN idTipoProducto INT, IN IDProveedores INT)
 BEGIN
-    INSERT INTO Productos (IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, idTipoProducto, IDProveedores)
-    VALUES (IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, idTipoProducto, IDProveedores);
+    INSERT INTO Productos (IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, existencia, idTipoProducto, IDProveedores)
+    VALUES (IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, existencia, idTipoProducto, IDProveedores);
 END $$
 DELIMITER ;
 
@@ -426,7 +439,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE sp_ListarProducto()
 BEGIN
-    SELECT IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, idTipoProducto, IDProveedores
+    SELECT IDProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, existencia, idTipoProducto, IDProveedores
     FROM Productos;
 END $$
 DELIMITER ;
@@ -434,15 +447,13 @@ DELIMITER ;
 -- Actualizar Producto
 DELIMITER &&
 CREATE PROCEDURE sp_ActualizarProducto(IN nuevoIDProducto INT, IN nuevodescripcionProducto VARCHAR(40), IN nuevoprecioUnitario DECIMAL(10,2),
-    IN nuevoprecioDocena DECIMAL(10,2), IN nuevoprecioMayor DECIMAL(10,2), IN nuevoimagenProducto VARCHAR(45),
-    IN nuevoexistencia INT, IN nuevoidTipoProducto INT, IN nuevoIDProveedores INT)
+IN nuevoprecioDocena DECIMAL(10,2), IN nuevoprecioMayor DECIMAL(10,2), IN nuevoexistencia INT, IN nuevoidTipoProducto INT, IN nuevoIDProveedores INT)
 BEGIN
     UPDATE Productos
     SET descripcionProducto = nuevodescripcionProducto, 
         precioUnitario = nuevoprecioUnitario, 
         precioDocena = nuevoprecioDocena, 
         precioMayor = nuevoprecioMayor, 
-        imagenProducto = nuevoimagenProducto, 
         existencia = nuevoexistencia,
         idTipoProducto = nuevoidTipoProducto,
         IDProveedores = nuevoIDProveedores
@@ -640,6 +651,7 @@ CALL sp_AgregarProveedor(3, '1357924680', 'Empresa C', 'Proveedor C', 'Direcció
 CALL sp_AgregarProveedor(4, '2468135790', 'Empresa D', 'Proveedor D', 'Dirección 4', 'Razón Social D', 'Contacto D', 'www.empresaD.com');
 CALL sp_AgregarProveedor(5, '3692581470', 'Empresa E', 'Proveedor E', 'Dirección 5', 'Razón Social E', 'Contacto E', 'www.empresaE.com');
 CALL sp_ListarProveedores();
+CALL sp_BuscarProveedor(1);
 CALL sp_ActualizarProveedor(5, '9876543210', 'NuevoNombre1', 'NuevoApellido1', 'NuevaDirección1', 'NuevaRazónSocial1', 'NuevoContacto1', 'www.nuevaEmpresa1.com');
 CALL sp_ActualizarProveedor(2, '1234567890', 'NuevoNombre2', 'NuevoApellido2', 'NuevaDirección2', 'NuevaRazónSocial2', 'NuevoContacto2', 'www.nuevaEmpresa2.com');
 CALL sp_ActualizarProveedor(3, '5432167890', 'NuevoNombre3', 'NuevoApellido3', 'NuevaDirección3', 'NuevaRazónSocial3', 'NuevoContacto3', 'www.nuevaEmpresa3.com');
@@ -663,6 +675,7 @@ CALL sp_AgregarTipoProducto(2, 'Ropa');
 CALL sp_AgregarTipoProducto(3, 'Alimentos');
 CALL sp_AgregarTipoProducto(4, 'Hogar');
 CALL sp_AgregarTipoProducto(5, 'Juguetes');
+CALL sp_BuscarTipoProducto(1);
 CALL sp_ListarTipoProducto();
 CALL sp_ActualizarTipoProducto(1, 'Electrónicos Mejorados');
 CALL sp_ActualizarTipoProducto(2, 'Ropa de Temporada');
@@ -703,15 +716,15 @@ CALL sp_ActualizarEmail(4, 'actualizado4@example.com', 'Email actualizado del pr
 CALL sp_ActualizarEmail(7, 'actualizado7@example.com', 'Email actualizado del proveedor 7', 4);
 -- CALL sp_EliminarEmail(3);
 
-CALL sp_AgregarProducto(1, 'Producto 1', 10.50, 100.00, 500.00, 'imagen1.jpg', 50, 1, 1);
-CALL sp_AgregarProducto(2, 'Producto 2', 15.75, 120.00, 600.00, 'imagen2.jpg', 30, 2, 2);
-CALL sp_AgregarProducto(3, 'Producto 3', 20.00, 150.00, 750.00, 'imagen3.jpg', 40, 1, 3);
-CALL sp_AgregarProducto(4, 'Producto 4', 12.25, 110.00, 550.00, 'imagen4.jpg', 60, 3, 1);
-CALL sp_AgregarProducto(5, 'Producto 5', 18.90, 130.00, 650.00, 'imagen5.jpg', 20, 2, 2);
+CALL sp_AgregarProducto(1, 'Producto 1', 10.50, 100.00, 500.00, 50, 1, 1);
+CALL sp_AgregarProducto(2, 'Producto 2', 15.75, 120.00, 600.00, 30, 2, 2);
+CALL sp_AgregarProducto(3, 'Producto 3', 20.00, 150.00, 750.00, 40, 1, 3);
+CALL sp_AgregarProducto(4, 'Producto 4', 12.25, 110.00, 550.00, 60, 3, 1);
+CALL sp_AgregarProducto(5, 'Producto 5', 18.90, 130.00, 650.00, 20, 2, 2);
 CALL sp_ListarProducto();
-CALL sp_ActualizarProducto(1, 'Nuevo Producto 1', 11.75, 105.00, 525.00, 'nueva_imagen1.jpg', 55, 2, 3);
-CALL sp_ActualizarProducto(3, 'Nuevo Producto 3', 22.50, 160.00, 800.00, 'nueva_imagen3.jpg', 45, 1, 2);
-CALL sp_ActualizarProducto(5, 'Nuevo Producto 5', 19.75, 140.00, 700.00, 'nueva_imagen5.jpg', 25, 3, 1);
+CALL sp_ActualizarProducto(1, 'Nuevo Producto 1', 11.75, 105.00, 525.00, 55, 2, 3);
+CALL sp_ActualizarProducto(3, 'Nuevo Producto 3', 22.50, 160.00, 800.00, 45, 1, 2);
+CALL sp_ActualizarProducto(5, 'Nuevo Producto 5', 19.75, 140.00, 700.00, 25, 3, 1);
 -- CALL sp_eliminarproducto(2);
 
 CALL sp_AgregarDetalleCompra(1, 15.50, 10, 1, 1);

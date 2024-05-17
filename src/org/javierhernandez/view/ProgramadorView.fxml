@@ -20,9 +20,9 @@
             <String fx:value="button-sombra" />
          </styleClass>
          <graphic>
-            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagen/arrow_14744703.png" />
+                  <Image url="@../imagen/Regresar2.png" />
                </image>
             </ImageView>
          </graphic>
