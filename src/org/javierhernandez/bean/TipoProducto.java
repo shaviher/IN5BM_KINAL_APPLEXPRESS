@@ -9,11 +9,12 @@ package org.javierhernandez.bean;
  * @author javih
  */
 public class TipoProducto {
+
     private int idTipoProducto;
     private String descripcion;
-    
-    public TipoProducto(){
-        
+
+    public TipoProducto() {
+
     }
 
     public TipoProducto(int idTipoProducto, String descripcion) {
@@ -36,7 +37,10 @@ public class TipoProducto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "ID | " + idTipoProducto;
+    }
+
 }

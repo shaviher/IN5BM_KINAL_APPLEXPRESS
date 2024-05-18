@@ -91,4 +91,6 @@ public class Productos {
     public void setIDProveedores(int IDProveedores) {
         this.IDProveedores = IDProveedores;
     }
+    
+
 }
