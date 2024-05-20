@@ -119,7 +119,6 @@ public class MenuProductosController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
             escenarioPrincipal.menuPrincipalView();
-
         }
     }
 
@@ -304,6 +303,7 @@ public class MenuProductosController implements Initializable {
             registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
             registro.setIDProveedores(((Proveedores) cmbIDProveedor.getSelectionModel().getSelectedItem()).getIDProveedores());
             registro.setIdTipoProducto(((TipoProducto) cmbIDTipoProducto.getSelectionModel().getSelectedItem()).getIdTipoProducto());
+            
 
             procedimiento.setInt(1, registro.getIDProducto());
             procedimiento.setString(2, registro.getDescripcionProducto());
@@ -379,49 +379,52 @@ public class MenuProductosController implements Initializable {
     }
 
     public void eliminarProducto() {
-        switch (tipoDeOperacion) {
-            case ACTUALIZAR:
-                desactivarControles();
-                limpiarControles();
-                btnAgregarPr.setText("Agregar");
-                btnEliminarPr.setText("Eiminar");
-                btnEditarCPr.setDisable(false);
-                btnReportesPr.setDisable(false);
-                tipoDeOperacion = operaciones.NULL;
-                break;
-            default:
-                if (tblProductos.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminacion del registro", "Eliminar Producto??",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (respuesta == JOptionPane.YES_NO_OPTION) {
-                        try {
-                            Productos selecionarElementos = (Productos) tblProductos.getSelectionModel().getSelectedItem();
-                            Integer IDProducto = selecionarElementos.getIDProducto();
-
-                            PreparedStatement eliminarDetalleCompra = Conexion.getInstancia().getConexion()
-                                    .prepareCall("CALL sp_EliminarDetalleCompra(?)");
-                            eliminarDetalleCompra.setInt(1, IDProducto);
-                            // eliminarDetalleCompra.execute();
-
-                            PreparedStatement eliminarProducto = Conexion.getInstancia().getConexion()
-                                    .prepareCall("CALL sp_eliminarproducto(?)");
-                            eliminarProducto.setInt(1, IDProducto);
-                            eliminarProducto.execute();
-
-                            ListaProductos.remove(selecionarElementos);
-                            limpiarControles();
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage());
-                            e.printStackTrace();
-                        }
+        if (tipoDeOperacion == operaciones.AGREGAR) {
+            desactivarControles();
+            limpiarControles();
+            btnAgregarPr.setText("Agregar");
+            btnEliminarPr.setText("Eliminar");
+            btnEditarCPr.setDisable(false);
+            btnReportesPr.setDisable(false);
+            tipoDeOperacion = operaciones.NULL;
+        } else {
+            if (tblProductos.getSelectionModel().getSelectedItem() != null) {
+                int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminación del registro", "Eliminar Producto?",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (respuesta == JOptionPane.YES_NO_OPTION) {
+                    try {
+                        PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_eliminarproducto(?)}");
+                        procedimiento.setInt(1, ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getIDProducto());
+                        procedimiento.execute();
+                        ListaProductos.remove(tblProductos.getSelectionModel().getSelectedItem());
+                        limpiarControles();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage());
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un Producto para eliminar");
-
                 }
-                break;
+            } else {
+                System.out.println("Debe seleccionar un Producto.");
+            }
         }
     }
+    
+    public boolean verificarDependencias(int idProducto) {
+    boolean tieneDependencias = false;
+    try {
+        PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_VerificarDependencias(?)}");
+        procedimiento.setInt(1, idProducto);
+        ResultSet resultado = procedimiento.executeQuery();
+        if (resultado.next() && resultado.getInt("cantidad") > 0) {
+            tieneDependencias = true;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return tieneDependencias;
+}
+
+    
 
     public void activarControles() {
         txtProductosID.setEditable(true);
@@ -470,5 +473,6 @@ public class MenuProductosController implements Initializable {
         btnEliminarPr.setDisable(false);
         btnReportesPr.setDisable(false);
         tipoDeOperacion = operaciones.NULL;
-    }
+    }   
 }
+

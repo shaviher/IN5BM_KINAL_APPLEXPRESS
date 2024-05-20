@@ -68,8 +68,8 @@ create table Productos(
 	existencia int,
 	idTipoProducto int,
 	IDProveedores int,
-	foreign key (idTipoProducto) references TipoProducto(idTipoProducto),
-	foreign key (IDProveedores) references Proveedores(IDProveedores)
+	FOREIGN KEY (idTipoProducto) REFERENCES TipoProducto(idTipoProducto) ON DELETE CASCADE,
+	foreign key (IDProveedores) references Proveedores(IDProveedores) ON DELETE CASCADE
 );
 
 create table DetalleCompra(
@@ -469,47 +469,6 @@ BEGIN
 END &&
 DELIMITER ;
 
------------------------------------ Detalle Compra
--- Agregar Detalle compra
-DELIMITER &&
-CREATE PROCEDURE sp_AgregarDetalleCompra( IN IDDetalleCompra INT, IN costoUnitario DECIMAL(10,2),
-    IN cantidad INT, IN IDProducto INT, IN IDCompra INT)
-BEGIN
-    INSERT INTO DetalleCompra (IDDetalleCompra, costoUnitario, cantidad, IDProducto, IDCompra)
-    VALUES (IDDetalleCompra, costoUnitario, cantidad, IDProducto, IDCompra);
-END &&
-DELIMITER ;
-
--- Listar Detalle Compra 
-DELIMITER &&
-CREATE PROCEDURE sp_ListarDetalleCompra()
-BEGIN
-    SELECT IDDetalleCompra, costoUnitario, cantidad, IDProducto, IDCompra
-    FROM DetalleCompra;
-END &&
-DELIMITER ;
-
--- Actualizar Detalle de Compra
-DELIMITER $$
-CREATE PROCEDURE sp_ActualizarDetalleCompra(IN nuevoIDDetalleCompra INT,  IN nuevocostoUnitario DECIMAL(10,2),
-IN nuevocantidad INT,  IN nuevoIDProducto INT, IN nuevoIDCompra INT)
-BEGIN
-    UPDATE DetalleCompra
-    SET costoUnitario = nuevocostoUnitario, 
-        cantidad = nuevocantidad,
-        IDProducto = nuevoIDProducto,
-        IDCompra = nuevoIDCompra
-    WHERE IDDetalleCompra = nuevoIDDetalleCompra;
-END $$
-DELIMITER ;
-
--- Delete
-DELIMITER $$
-CREATE PROCEDURE sp_EliminarDetalleCompra(IN IDDetalleCompra INT)
-BEGIN
-    DELETE FROM DetalleCompra WHERE IDDetalleCompra = IDDetalleCompra;
-END $$
-DELIMITER ;
 
 -------------- Empleado
 
@@ -596,43 +555,6 @@ DELIMITER $$
 CREATE PROCEDURE sp_EliminarFactura(IN IDDeFactura INT)
 BEGIN
     DELETE FROM Factura WHERE IDDeFactura = IDDeFactura;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_AgregarDetalleFactura( IN IDDetalleFactura INT, IN precioUnitario DECIMAL(10,2),
-IN cantidad INT, IN p_IDDeFactura INT, IN IDProducto INT)
-BEGIN
-    INSERT INTO DetalleFactura (IDDetalleFactura, precioUnitario, cantidad, IDDeFactura, IDProducto)
-    VALUES (IDDetalleFactura, precioUnitario, cantidad, IDDeFactura, IDProducto);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_ListarDetalleFactura()
-BEGIN
-    SELECT IDDetalleFactura, precioUnitario, cantidad, IDDeFactura, IDProducto
-    FROM DetalleFactura;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_ActualizarDetalleFactura(IN nuevoIDDetalleFactura INT, IN nuevoprecioUnitario DECIMAL(10,2),
-IN nuevocantidad INT, IN nuevoIDDeFactura INT, IN nuevoIDProducto INT)
-BEGIN
-    UPDATE DetalleFactura
-    SET precioUnitario = nuevoprecioUnitario, 
-        cantidad = nuevocantidad,
-        IDDeFactura = nuevoIDDeFactura,
-        IDProducto = nuevoIDProducto
-    WHERE IDDetalleFactura = nuevoIDDetalleFactura;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_EliminarDetalleFactura(IN IDDetalleFactura INT)
-BEGIN
-    DELETE FROM DetalleFactura WHERE IDDetalleFactura = IDDetalleFactura;
 END $$
 DELIMITER ;
 
@@ -727,17 +649,6 @@ CALL sp_ActualizarProducto(3, 'Nuevo Producto 3', 22.50, 160.00, 800.00, 45, 1, 
 CALL sp_ActualizarProducto(5, 'Nuevo Producto 5', 19.75, 140.00, 700.00, 25, 3, 1);
 -- CALL sp_eliminarproducto(2);
 
-CALL sp_AgregarDetalleCompra(1, 15.50, 10, 1, 1);
-CALL sp_AgregarDetalleCompra(2, 20.75, 8, 2, 1);
-CALL sp_AgregarDetalleCompra(3, 10.00, 15, 3, 2);
-CALL sp_AgregarDetalleCompra(4, 18.25, 12, 4, 2);
-CALL sp_AgregarDetalleCompra(5, 22.00, 6, 5, 3);
-CALL sp_ListarDetalleCompra();
-CALL sp_ActualizarDetalleCompra(1, 17.75, 12, 2, 3);
-CALL sp_ActualizarDetalleCompra(3, 11.50, 18, 5, 1);
-CALL sp_ActualizarDetalleCompra(5, 25.00, 8, 3, 2);
--- CALL sp_EliminarDetalleCompra(2);
-
 CALL sp_AgregarEmpleado(1, 'Juan', 'Perez', 1500.00, 'Calle Principal 123', 'Mañana', 1);
 CALL sp_AgregarEmpleado(2, 'Maria', 'Gonzalez', 1800.00, 'Avenida Central 456', 'Tarde', 2);
 CALL sp_AgregarEmpleado(3, 'Pedro', 'Diaz', 2000.00, 'Plaza Mayor 789', 'Noche', 1);
@@ -759,17 +670,3 @@ CALL sp_ActualizarFactura(1, 'Pagada', 180.00, '2024-05-15', 2, 1);
 CALL sp_ActualizarFactura(3, 'Pagada', 200.00, '2024-05-17', 3, 3);
 CALL sp_ActualizarFactura(5, 'Pagada', 320.00, '2024-05-19', 1, 2);
 -- CALL sp_EliminarFactura(2);
-
-CALL sp_AgregarDetalleFactura(1, 10.50, 5, 1, 1);
-CALL sp_AgregarDetalleFactura(2, 15.75, 8, 2, 2);
-CALL sp_AgregarDetalleFactura(3, 20.00, 3, 1, 3);
-CALL sp_AgregarDetalleFactura(4, 12.25, 6, 2, 1);
-CALL sp_AgregarDetalleFactura(5, 18.90, 4, 3, 2);
-CALL sp_AgregarDetalleFactura(6, 22.75, 2, 1, 4);
-CALL sp_AgregarDetalleFactura(7, 17.40, 7, 2, 3);
-CALL sp_AgregarDetalleFactura(8, 30.00, 1, 3, 1);
-CALL sp_ListarDetalleFactura();
-CALL sp_ActualizarDetalleFactura(1, 12.50, 7, 2, 1);
-CALL sp_ActualizarDetalleFactura(4, 14.75, 4, 3, 2);
-CALL sp_ActualizarDetalleFactura(6, 25.00, 3, 1, 4);
--- CALL sp_EliminarDetalleFactura(3);
