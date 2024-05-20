@@ -176,7 +176,7 @@ public class MenuProductosController implements Initializable {
         Proveedores resultado = null;
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("CALL sp_BuscarProveedor(?)");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_BuscarProveedor(?)}");
             procedimiento.setInt(1, IDProveedores);
             ResultSet registro = procedimiento.executeQuery();
             while (registro.next()) {
@@ -200,7 +200,7 @@ public class MenuProductosController implements Initializable {
     public ObservableList<Productos> getProducto() {
         ArrayList<Productos> listaPro = new ArrayList<Productos>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("CALL sp_ListarProducto()");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_ListarProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 listaPro.add(new Productos(resultado.getInt("IDProducto"),
@@ -223,7 +223,7 @@ public class MenuProductosController implements Initializable {
     public ObservableList<Proveedores> getProveedores() {
         ArrayList<Proveedores> listaProv = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("CALL sp_ListarProveedores()");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_ListarProveedores()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 listaProv.add(new Proveedores(resultado.getInt("IDProveedores"),
@@ -303,7 +303,6 @@ public class MenuProductosController implements Initializable {
             registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
             registro.setIDProveedores(((Proveedores) cmbIDProveedor.getSelectionModel().getSelectedItem()).getIDProveedores());
             registro.setIdTipoProducto(((TipoProducto) cmbIDTipoProducto.getSelectionModel().getSelectedItem()).getIdTipoProducto());
-            
 
             procedimiento.setInt(1, registro.getIDProducto());
             procedimiento.setString(2, registro.getDescripcionProducto());
@@ -379,52 +378,37 @@ public class MenuProductosController implements Initializable {
     }
 
     public void eliminarProducto() {
-        if (tipoDeOperacion == operaciones.AGREGAR) {
-            desactivarControles();
-            limpiarControles();
-            btnAgregarPr.setText("Agregar");
-            btnEliminarPr.setText("Eliminar");
-            btnEditarCPr.setDisable(false);
-            btnReportesPr.setDisable(false);
-            tipoDeOperacion = operaciones.NULL;
-        } else {
-            if (tblProductos.getSelectionModel().getSelectedItem() != null) {
-                int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminación del registro", "Eliminar Producto?",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (respuesta == JOptionPane.YES_NO_OPTION) {
-                    try {
-                        PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_eliminarproducto(?)}");
-                        procedimiento.setInt(1, ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getIDProducto());
-                        procedimiento.execute();
-                        ListaProductos.remove(tblProductos.getSelectionModel().getSelectedItem());
-                        limpiarControles();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage());
+        switch (tipoDeOperacion) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnAgregarPr.setText("Agregar");
+                btnEliminarPr.setText("Eliminar");
+                btnEditarCPr.setDisable(false);
+                btnReportesPr.setDisable(false);
+                tipoDeOperacion = operaciones.NULL;
+                break;
+            default:
+                if (tblProductos.getSelectionModel().getSelectedItem() != null) {
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminación del registro", "Eliminar Empleado?",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (respuesta == JOptionPane.YES_NO_OPTION) {
+                        try {
+                            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_eliminarproducto(?)}");
+                            procedimiento.setInt(1, ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getIDProducto());
+                            procedimiento.execute();
+                            ListaProductos.remove(tblProductos.getSelectionModel().getSelectedItem());
+                            limpiarControles();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar un producto para eliminar");
                 }
-            } else {
-                System.out.println("Debe seleccionar un Producto.");
-            }
+                break;
         }
     }
-    
-    public boolean verificarDependencias(int idProducto) {
-    boolean tieneDependencias = false;
-    try {
-        PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_VerificarDependencias(?)}");
-        procedimiento.setInt(1, idProducto);
-        ResultSet resultado = procedimiento.executeQuery();
-        if (resultado.next() && resultado.getInt("cantidad") > 0) {
-            tieneDependencias = true;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return tieneDependencias;
-}
-
-    
 
     public void activarControles() {
         txtProductosID.setEditable(true);
@@ -473,6 +457,5 @@ public class MenuProductosController implements Initializable {
         btnEliminarPr.setDisable(false);
         btnReportesPr.setDisable(false);
         tipoDeOperacion = operaciones.NULL;
-    }   
+    }
 }
-

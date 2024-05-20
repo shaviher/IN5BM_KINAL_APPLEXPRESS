@@ -48,7 +48,7 @@ create table TelefonoProveedor(
 	numeroSecundario varchar(8),
 	observaciones varchar(45),
 	IDProveedores int,
-	foreign key (IDProveedores) references Proveedores (IDProveedores)
+	foreign key (IDProveedores) references Proveedores (IDProveedores) ON DELETE CASCADE
 );
 
 create table EmailProveedor(
@@ -56,7 +56,7 @@ create table EmailProveedor(
 	emailproveedor varchar(50),
 	descripcion varchar(100),
 	IDProveedores int,
-	foreign key (IDProveedores) references Proveedores (IDProveedores)
+	foreign key (IDProveedores) references Proveedores (IDProveedores) ON DELETE CASCADE
 );
 
 create table Productos(
@@ -78,8 +78,8 @@ create table DetalleCompra(
 	cantidad int,
 	IDProducto int,
 	IDCompra int,
-	foreign key (IDProducto) references Productos(IDProducto),
-	foreign key (IDCompra) references Compras(IDCompra)
+	foreign key (IDProducto) references Productos(IDProducto) ON DELETE CASCADE,
+	foreign key (IDCompra) references Compras(IDCompra) ON DELETE CASCADE
 );
 
 create table Empleados(
@@ -90,7 +90,7 @@ create table Empleados(
 	direccion varchar(150),
 	turno varchar(15),
 	idCargoEmpleado int,
-	foreign key (idCargoEmpleado) references CargoEmpleado(idCargoEmpleado)
+	foreign key (idCargoEmpleado) references CargoEmpleado(idCargoEmpleado) ON DELETE CASCADE
 );
 
 create table Factura(
@@ -100,8 +100,8 @@ create table Factura(
 	fechaFactura varchar(45),
 	IDCliente int,
 	IDEmpleado int,
-	foreign key (IDCliente) references Clientes(IDCliente),
-	foreign key (IDEmpleado) references Empleados(IDEmpleado)
+	foreign key (IDCliente) references Clientes(IDCliente) ON DELETE CASCADE,
+	foreign key (IDEmpleado) references Empleados(IDEmpleado) ON DELETE CASCADE
 );
 
 create table DetalleFactura(
@@ -110,8 +110,8 @@ create table DetalleFactura(
 	cantidad int,
 	IDDeFactura int,
 	IDProducto int,
-	foreign key (IDDeFactura) references Factura(IDDeFactura),
-	foreign key (IDProducto) references Productos(IDProducto)
+	foreign key (IDDeFactura) references Factura(IDDeFactura) ON DELETE CASCADE,
+	foreign key (IDProducto) references Productos(IDProducto) ON DELETE CASCADE
 );
 
 use DBApplexpress;
@@ -339,6 +339,13 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarCargoEmpleado(IN idCargoEmpleado int)
+BEGIN
+    SELECT * FROM CargoEmpleado WHERE idCargoEmpleado = idCargoEmpleado;
+END$$
+DELIMITER ;
+
 -------------------------------------------- Telefono
 -- Agregar telefono
 
@@ -383,6 +390,13 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarTelefonoProveedor(IN IDTelefonoProveedor int)
+BEGIN
+    SELECT * FROM TelefonoProveedor WHERE IDTelefonoProveedor = IDTelefonoProveedor;
+END$$
+DELIMITER ;
+
 ----------------------------------------- Email
 -- Agregar Email
 DELIMITER $$
@@ -422,6 +436,13 @@ CREATE PROCEDURE sp_EliminarEmail(IN IDEmailProveedor INT)
 BEGIN
     DELETE FROM EmailProveedor WHERE IDEmailProveedor = IDEmailProveedor;
 END &&
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarEmailProveedor(IN IDEmailProveedor int)
+BEGIN
+    SELECT * FROM EmailProveedor WHERE IDTelefonoProveedor = IDEmailProveedor;
+END$$
 DELIMITER ;
 
 ----------------------------------------- Productos

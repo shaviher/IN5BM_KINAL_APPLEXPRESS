@@ -34,7 +34,6 @@
          </columns>
          <styleClass>
             <String fx:value="table-row-cell" />
-            <String fx:value="table-row-cell" />
             <String fx:value="table-view" />
          </styleClass>
       </TableView>
