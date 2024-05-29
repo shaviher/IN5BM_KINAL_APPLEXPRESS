@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.javierhernandez.bean.EmailProveedor;
 import org.javierhernandez.bean.Proveedores;
-import org.javierhernandez.database.Conexion;
+import org.javierhernandez.db.Conexion;
 import org.javierhernandez.systen.Main;
 
 /**

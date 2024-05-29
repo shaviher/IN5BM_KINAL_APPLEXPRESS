@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Productos;
 import org.javierhernandez.bean.Proveedores;
 import org.javierhernandez.bean.TipoProducto;
-import org.javierhernandez.database.Conexion;
+import org.javierhernandez.db.Conexion;
 import org.javierhernandez.systen.Main;
 
 /**

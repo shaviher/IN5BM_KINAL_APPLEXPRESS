@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Proveedores;
 import org.javierhernandez.bean.TelefonoProveedor;
-import org.javierhernandez.database.Conexion;
+import org.javierhernandez.db.Conexion;
 import org.javierhernandez.systen.Main;
 
 /**
@@ -99,7 +99,7 @@ public class MenuTelefonoProveedorController implements Initializable {
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-    
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresarTP) {
@@ -276,19 +276,19 @@ public class MenuTelefonoProveedorController implements Initializable {
                 break;
             case ACTUALIZAR:
                 try {
-                    ActualizarTelefono();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                btnEditarTP.setText("Editar");
-                btnReportesP.setText("Reporte");
-                btnAgregarTP.setDisable(false);
-                btnEliminarTP.setDisable(false);
-                desactivarControles();
-                limpiarControles();
-                tipoDeOperaciones = operaciones.NULL;
-                cargarDatosTelefono();
-                break;
+                ActualizarTelefono();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            btnEditarTP.setText("Editar");
+            btnReportesP.setText("Reporte");
+            btnAgregarTP.setDisable(false);
+            btnEliminarTP.setDisable(false);
+            desactivarControles();
+            limpiarControles();
+            tipoDeOperaciones = operaciones.NULL;
+            cargarDatosTelefono();
+            break;
         }
     }
 
@@ -310,7 +310,7 @@ public class MenuTelefonoProveedorController implements Initializable {
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_EliminarTelefono(?)}");
-                            procedimiento.setInt(1, ((TelefonoProveedor)tblTelefonoProveedor.getSelectionModel().getSelectedItem()).getIDTelefonoProveedor());
+                            procedimiento.setInt(1, ((TelefonoProveedor) tblTelefonoProveedor.getSelectionModel().getSelectedItem()).getIDTelefonoProveedor());
                             procedimiento.execute();
                             ListaTelefonoProveedor.remove(tblTelefonoProveedor.getSelectionModel().getSelectedItem());
                             limpiarControles();
