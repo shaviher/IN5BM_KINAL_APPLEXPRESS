@@ -466,7 +466,7 @@ DELIMITER ;
 
 
 -- traer el precio unitario
-delimiter //
+delimiter $$
 CREATE FUNCTION fn_PrecioUnitario(IDProducto VARCHAR(15)) RETURNS DECIMAL(10,2)
 deterministic
 BEGIN
@@ -474,13 +474,13 @@ BEGIN
 	SET precio= (SELECT DetalleCompra.costoUnitario FROM DetalleCompra
     WHERE DetalleCompra.IDProducto = IDProducto);
 	RETURN precio;
-END //
+END $$
 
 DELIMITER ;
 
 
 -- total compra
-DELIMITER //
+DELIMITER $$
 CREATE FUNCTION fn_TotalCompra(totalDocumento INT) RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
@@ -489,11 +489,11 @@ BEGIN
     SET sumatoria = (SELECT sum(cantidad*costoUnitario) FROM DetalleCompra 
 					WHERE IDCompra = IDCompra) ;
     RETURN sumatoria;
-END //
+END $$
 DELIMITER ;
 
 -- Precios Detalle factura
-delimiter //
+delimiter $$
 create trigger tr_insertarPreciosDetalleFactura_Before_Insert
 before insert on DetalleFactura
 for each row
@@ -503,11 +503,43 @@ begin
     set new.precioUnitario = (select precioUnitario from Productos
                               where Productos.IDProducto = new.IDProducto);
 
-end //
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_AgregarDetalleCompra(in IDDetalleCompra int, in costoUnitario decimal, in cantidad int, in IDProducto int, in IDCompra int)
+begin
+	insert into DetalleCompra(IDDetalleCompra,costoUnitario,cantidad,IDProducto,IDCompra)
+		values(IDDetalleCompra,costoUnitario,cantidad,IDProducto,IDCompra);
+end$$
+delimiter ;
+
+delimiter $$
+create procedure sp_ListarDetalleCompra()
+begin
+	select * from DetalleCompra;
+end$$
+delimiter ;
+
+delimiter $$
+create procedure sp_ActualizarDetalleCompra(in IDDetalleCompra int, in newcostoUnitario decimal, in newcantidad int, in newIDProducto int, in newIDCompra int)
+begin
+	update DetalleCompra
+    set costoUnitario = newcostoUnitario, cantidad = newcantidad, IDProducto = newIDProducto, IDCompra = newIDCompra
+    where IDDetalleCompra = IDDetalleCompra;
+end$$
+delimiter ;
+
+delimiter $$
+create procedure sp_EliminarDetalleCompra(in IDDetalleCompra int)
+begin
+	delete from DetalleCompra
+    where IDDetalleCompra = IDDetalleCompra;
+end$$
 delimiter ;
 
 -- insertar precios en Productos
-delimiter //
+delimiter $$
 create trigger tr_insertarPreciosProductos_after_Insert
 after insert on DetalleCompra
 for each row
@@ -517,11 +549,11 @@ begin
                                        (fn_TraerPrecioUnitario(new.IDProducto) + (fn_TraerPrecioUnitario(new.IDProducto) * 0.35)),
                                        (fn_TraerPrecioUnitario(new.IDProducto) + (fn_TraerPrecioUnitario(new.IDProducto) * 0.25)),
                                        new.cantidad);
-end //
+end $$
 delimiter ;
 
 -- insertar total compra
-delimiter //
+delimiter $$
 create trigger tr_insertarTotalCompra_After_Insert
 after insert on DetalleCompra
 for each row
@@ -531,11 +563,11 @@ begin
     set total = (select sum(costoUnitario * cantidad) from DetalleCompra where DetalleCompra.IDCompra = new.IDCompra);
 
     call sp_actualizarComprasTotal(new.IDCompra, total);
-end //
+end $$
 delimiter ;
 
 -- insertar total factura
-delimiter //
+delimiter $$
 create trigger tr_insertarTotalFactura_After_Insert
 after insert on DetalleFactura
 for each row
@@ -545,7 +577,7 @@ begin
     set total = (select sum(precioUnitario * cantidad) from DetalleFactura where DetalleFactura.IDDetalleFactura = new.IDDetalleFactura);
 
     call sp_actualizarFacturaTotal(new.IDDetalleFactura, total);
-end //
+end $$
 delimiter ;
 
 CALL sp_AgregarCliente(1, '1234567890', 'Juan', 'Pérez', 'Calle Principal', '12345678', 'juan@example.com');
@@ -660,3 +692,8 @@ CALL sp_ActualizarFactura(1, 'Pagada', 180.00, '2024-05-15', 2, 1);
 CALL sp_ActualizarFactura(3, 'Pagada', 200.00, '2024-05-17', 3, 3);
 CALL sp_ActualizarFactura(5, 'Pagada', 320.00, '2024-05-19', 1, 2);
 -- CALL sp_EliminarFactura(2);
+
+call sp_AgregarDetalleCompra(1234,10.00,40,1,1);
+call sp_ListarDetalleCompra();
+call sp_ActualizarDetalleCompra(1,0.00,0,2,2);
+-- call sp_EliminarDetalleCompra(1);
