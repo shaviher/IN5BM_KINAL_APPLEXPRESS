@@ -108,3 +108,8 @@
     -fx-border-color: transparent; /* Color del borde del TextField */
 }
 
+.text-textoCircular {
+    -fx-shape: "M 0 0 C 0 50, 100 50, 100 0";
+    -fx-background-color: lightblue;
+    -fx-padding: 20px;
+}
