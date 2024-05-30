@@ -5,51 +5,65 @@ package org.javierhernandez.bean;
  * @author javih
  */
 public class DetalleCompra {
-    private int IDEmailProveedor;
-    private String emailproveedor;
-    private String descripcion;
-    private int IDProveedores;
+    private int IDDetalleCompra;
+    private Double costoUnitario; //*atributo arreglado*// 
+    private int cantidad; //*atributo arreglado*// 
+    private int IDProducto; //*atributo arreglado*// 
+    private int IDCompra; //*atributo arreglado*// 
     
     public DetalleCompra(){
         
     }
 
-    public DetalleCompra(int IDEmailProveedor, String emailproveedor, String descripcion, int IDProveedores) {
-        this.IDEmailProveedor = IDEmailProveedor;
-        this.emailproveedor = emailproveedor;
-        this.descripcion = descripcion;
-        this.IDProveedores = IDProveedores;
+    //*Correción de Constructor*/
+
+    public DetalleCompra(int IDDetalleCompra, Double costoUnitario, int cantidad, int IDProducto, int IDCompra) {
+        this.IDDetalleCompra = IDDetalleCompra;
+        this.costoUnitario = costoUnitario;
+        this.cantidad = cantidad;
+        this.IDProducto = IDProducto;
+        this.IDCompra = IDCompra;
     }
 
-    public int getIDEmailProveedor() {
-        return IDEmailProveedor;
+    public int getIDDetalleCompra() {
+        return IDDetalleCompra;
     }
 
-    public void setIDEmailProveedor(int IDEmailProveedor) {
-        this.IDEmailProveedor = IDEmailProveedor;
+    public void setIDDetalleCompra(int IDDetalleCompra) {
+        this.IDDetalleCompra = IDDetalleCompra;
     }
 
-    public String getEmailproveedor() {
-        return emailproveedor;
+    public Double getCostoUnitario() {
+        return costoUnitario;
     }
 
-    public void setEmailproveedor(String emailproveedor) {
-        this.emailproveedor = emailproveedor;
+    public void setCostoUnitario(Double costoUnitario) {
+        this.costoUnitario = costoUnitario;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public int getIDProveedores() {
-        return IDProveedores;
+    public int getIDProducto() {
+        return IDProducto;
     }
 
-    public void setIDProveedores(int IDProveedores) {
-        this.IDProveedores = IDProveedores;
+    public void setIDProducto(int IDProducto) {
+        this.IDProducto = IDProducto;
     }
+
+    public int getIDCompra() {
+        return IDCompra;
+    }
+
+    public void setIDCompra(int IDCompra) {
+        this.IDCompra = IDCompra;
+    }
+    
+    
 }
