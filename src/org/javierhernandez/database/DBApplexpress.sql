@@ -1,4 +1,4 @@
--- drop database if exists DBApplexpress;
+drop database if exists DBApplexpress;
 create database DBApplexpress;
 use DBApplexpress;
 set global time_zone = "-6:00";
@@ -150,6 +150,15 @@ BEGIN
         correoCliente = nuevoCorreoCliente
     WHERE
         IDCliente = IDClienteNuevo;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarClientePorID (IN IDCliente int)
+BEGIN
+    SELECT *
+    FROM Clientes
+    WHERE IDCliente = IDCliente;
 END$$
 DELIMITER ;
 
