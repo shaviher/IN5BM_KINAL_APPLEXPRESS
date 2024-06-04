@@ -72,4 +72,9 @@ public class Factura {
     public void setIDEmpleado(int IDEmpleado) {
         this.IDEmpleado = IDEmpleado;
     }
+    
+    @Override
+    public String toString() {
+        return  IDDeFactura + "| " + fechaFactura ;
+    }
 }

@@ -54,4 +54,8 @@ public class Compras {
         this.totalDocumento = totalDocumento;
     }
 
+    @Override
+    public String toString() {
+        return IDCompra + " | " + descripcion;
+    }
 }

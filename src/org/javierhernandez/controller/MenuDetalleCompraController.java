@@ -174,8 +174,8 @@ public class MenuDetalleCompraController implements Initializable {
                         registro.getDouble("precioDocena"),
                         registro.getDouble("precioMayor"),
                         registro.getInt("existencia"),
-                        registro.getInt("tipoProducto"),
-                        registro.getInt("proveedor"));
+                        registro.getInt("idTipoProducto"),
+                        registro.getInt("IDProveedores"));
 
             }
 

@@ -45,6 +45,13 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarClientes(IN IDCliente int)
+BEGIN
+    SELECT * FROM Clientes WHERE IDCliente = IDCliente;
+END$$
+DELIMITER ;
+
 -------------------------------------- Proveedor
 -- Agregar Proveedor 	
 DELIMITER $$
@@ -420,6 +427,13 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_BuscarEmpleados (IN IDEmpleado int)
+BEGIN
+    SELECT * FROM Empleados WHERE IDEmpleado = IDEmpleado;
+END$$
+DELIMITER ;
+
 -------------------- Factura
 -- Create
 DELIMITER $$
@@ -585,6 +599,7 @@ CALL sp_AgregarCliente(2, '0987654321', 'Pedro', 'Gómez', 'Avenida Secundaria',
 CALL sp_AgregarCliente(3, '5678901234', 'Ana', 'Martínez', 'Calle Secundaria', '34567890', 'ana@example.com');
 CALL sp_AgregarCliente(4, '9876543210', 'María', 'López', 'Avenida Central', '87654321', 'maria@example.com');
 CALL sp_AgregarCliente(5, '1357924680', 'Carlos', 'García', 'Calle 10', '98765432', 'carlos@example.com');
+CALL sp_BuscarClientes(1);
 call sp_ListarClientes();
 CALL sp_ActualizarCliente(1, '9876543210', 'María', 'López', 'Avenida Central', '87654321', 'maria@example.com');
 -- CALL sp_EliminarCliente(1);
@@ -676,6 +691,7 @@ CALL sp_AgregarEmpleado(2, 'Maria', 'Gonzalez', 1800.00, 'Avenida Central 456', 
 CALL sp_AgregarEmpleado(3, 'Pedro', 'Diaz', 2000.00, 'Plaza Mayor 789', 'Noche', 1);
 CALL sp_AgregarEmpleado(4, 'Ana', 'Martinez', 1700.00, 'Callejón Secreto 10', 'Mañana', 3);
 CALL sp_AgregarEmpleado(5, 'Luis', 'Sanchez', 1900.00, 'Avenida Principal 234', 'Tarde', 2);
+CALL sp_BuscarEmpleados(1);
 CALL sp_ListarEmpleado();
 CALL sp_ActualizarEmpleado(1, 'Pedro', 'Lopez', 1800.00, 'Calle Central 456', 'Noche', 2);
 CALL sp_ActualizarEmpleado(3, 'Juan', 'Garcia', 2200.00, 'Plaza Principal 789', 'Mañana', 3);

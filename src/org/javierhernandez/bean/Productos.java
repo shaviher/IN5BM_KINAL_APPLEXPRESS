@@ -92,5 +92,10 @@ public class Productos {
         this.IDProveedores = IDProveedores;
     }
     
+    @Override
+    public String toString() {
+        return IDProducto + " | " + descripcionProducto;
+    }
+    
 
 }

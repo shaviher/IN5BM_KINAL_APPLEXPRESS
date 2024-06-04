@@ -13,10 +13,10 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             // Conexion  dbXavi 
-            // conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBApplexpress?useSSL=false&allowPublicKeyRetrieval=true", "root", "DKsWhbua");
+             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBApplexpress?useSSL=false&allowPublicKeyRetrieval=true", "root", "DKsWhbua");
             // Conexion cbLuis 
             //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBApplexpress?useSSL=false&allowPublicKeyRetrieval=true", "root", "14/09/2020sRrpgfyt");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBApplexpress?useSSL=false&allowPublicKeyRetrieval=true", "root", "Aurorita0306@");
+            //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBApplexpress?useSSL=false&allowPublicKeyRetrieval=true", "root", "Aurorita0306@");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
             e.printStackTrace();
         }

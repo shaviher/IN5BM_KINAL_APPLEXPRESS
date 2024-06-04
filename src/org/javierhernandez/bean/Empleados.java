@@ -82,4 +82,9 @@ public class Empleados {
     public void setIdCargoEmpleado(int idCargoEmpleado) {
         this.idCargoEmpleado = idCargoEmpleado;
     }
+    
+    @Override
+    public String toString() {
+        return  IDEmpleado + "| " + nombresEmpleado ;
+    }
 }
