@@ -119,7 +119,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnReportesP" mnemonicParsing="false" prefHeight="65.0" prefWidth="161.0" stylesheets="@../resource/manzanitacss.css" text="Reportes" GridPane.columnIndex="3">
+            <Button fx:id="btnReportesP" mnemonicParsing="false" onAction="#reporte" prefHeight="65.0" prefWidth="161.0" stylesheets="@../resource/manzanitacss.css" text="Reportes" GridPane.columnIndex="3">
                <opaqueInsets>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </opaqueInsets>

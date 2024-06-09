@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +24,7 @@ import org.javierhernandez.bean.Productos;
 import org.javierhernandez.bean.Proveedores;
 import org.javierhernandez.bean.TipoProducto;
 import org.javierhernandez.db.Conexion;
+import org.javierhernandez.report.GenerarReportes;
 import org.javierhernandez.systen.Main;
 
 /**
@@ -409,6 +412,32 @@ public class MenuProductosController implements Initializable {
                 break;
         }
     }
+    
+     public void imprimirReporte() {
+        Map parametro = new HashMap();
+        parametro.put("IDCliente", null);
+        GenerarReportes.mostrarReportes("ReporteProductos.jasper", "Reporte de Productos", parametro);
+    }
+
+    public void reporte() {
+        switch (tipoDeOperacion) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                btnReportesPr.setText("Reportes");
+                btnEditarCPr.setText("Editar");
+                btnAgregarPr.setDisable(false);
+                btnEliminarPr.setDisable(false);
+                btnRegresar.setDisable(false);
+                limpiarControles();
+                desactivarControles();
+                tipoDeOperacion = operaciones.NULL;
+                cargarDatosProductos();
+        }
+    }
+
+    
 
     public void activarControles() {
         txtProductosID.setEditable(true);
@@ -443,7 +472,7 @@ public class MenuProductosController implements Initializable {
         cmbIDProveedor.getSelectionModel().getSelectedItem();
         cmbIDTipoProducto.getSelectionModel().getSelectedItem();
     }
-
+/*
     public void cancelarAccion() {
         limpiarControles();
         desactivarControles();
@@ -457,5 +486,5 @@ public class MenuProductosController implements Initializable {
         btnEliminarPr.setDisable(false);
         btnReportesPr.setDisable(false);
         tipoDeOperacion = operaciones.NULL;
-    }
+    }*/
 }

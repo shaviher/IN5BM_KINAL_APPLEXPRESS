@@ -95,7 +95,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnReportesPr" mnemonicParsing="false" onAction="#cancelarAccion" prefHeight="90.0" prefWidth="158.0" stylesheets="@../resource/manzanitacss.css" text="Reportes" GridPane.columnIndex="3">
+            <Button fx:id="btnReportesPr" mnemonicParsing="false" onAction="#reporte" prefHeight="90.0" prefWidth="158.0" stylesheets="@../resource/manzanitacss.css" text="Reportes" GridPane.columnIndex="3">
                <opaqueInsets>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </opaqueInsets>

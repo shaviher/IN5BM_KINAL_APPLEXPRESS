@@ -1,4 +1,5 @@
 use DBApplexpress;
+
 -------------------------------------------- Cliente
 -- Agregar cliente
 DELIMITER $$
@@ -471,12 +472,11 @@ DELIMITER ;
 
 -- Delete
 DELIMITER $$
-CREATE PROCEDURE sp_EliminarFactura(IN IDDeFactura INT)
+CREATE PROCEDURE sp_EliminarFactura(IN IDDeFacturas INT)
 BEGIN
-    DELETE FROM Factura WHERE IDDeFactura = IDDeFactura;
+    DELETE FROM Factura WHERE IDDeFactura = IDDeFacturas;
 END $$
 DELIMITER ;
-
 
 
 -- traer el precio unitario
@@ -566,6 +566,20 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+create procedure sp_actualizarPreciosProductos(in codProd int,in precUnit decimal(10,2),in precDoc decimal(10,5), in precMay decimal(10,2), in exist int)
+begin
+	update Productos 
+	set 
+		Productos.precioUnitario=precUnit,
+		Productos.precioDocena=precDoc,
+        Productos.precioMayor=precMay,
+        Productos.existencia=exist
+    where
+		Productos.IDProducto=codProd;
+end $$
+delimiter ;
+
 -- insertar total compra
 delimiter $$
 create trigger tr_insertarTotalCompra_After_Insert
@@ -594,6 +608,21 @@ begin
 end $$
 delimiter ;
 
+-- traer el precio unitario
+delimiter //
+create function fn_TraerPrecioUnitario(codProd int) returns decimal(10,2)
+deterministic
+begin
+	declare precio decimal(10,2);
+	set precio= (select DetalleCompra.costoUnitario from DetalleCompra
+    where DetalleCompra.IDProducto=codProd);
+	return precio;
+end //
+
+delimiter ;
+
+
+
 CALL sp_AgregarCliente(1, '1234567890', 'Juan', 'Pérez', 'Calle Principal', '12345678', 'juan@example.com');
 CALL sp_AgregarCliente(2, '0987654321', 'Pedro', 'Gómez', 'Avenida Secundaria', '87654321', 'pedro@example.com');
 CALL sp_AgregarCliente(3, '5678901234', 'Ana', 'Martínez', 'Calle Secundaria', '34567890', 'ana@example.com');
@@ -603,6 +632,7 @@ CALL sp_BuscarClientes(1);
 call sp_ListarClientes();
 CALL sp_ActualizarCliente(1, '9876543210', 'María', 'López', 'Avenida Central', '87654321', 'maria@example.com');
 -- CALL sp_EliminarCliente(1);
+
 
 CALL sp_AgregarProveedor(1, '1234567890', 'Empresa A', 'Proveedor A', 'Dirección 1', 'Razón Social A', 'Contacto A', 'www.empresaA.com');
 CALL sp_AgregarProveedor(2, '9876543210', 'Empresa B', 'Proveedor B', 'Dirección 2', 'Razón Social B', 'Contacto B', 'www.empresaB.com');

@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Proveedores;
 import org.javierhernandez.db.Conexion;
+import org.javierhernandez.report.GenerarReportes;
 import org.javierhernandez.systen.Main;
 
 /**
@@ -324,7 +327,32 @@ public class MenuProveedoresController implements Initializable {
                 break; // Agregué este break que faltaba
         }
     }
+    
+    public void imprimirReporte() {
+        Map parametro = new HashMap();
+        parametro.put("IDProveedores", null);
+        GenerarReportes.mostrarReportes("ReporteProveedores.jasper", "Reporte de Proveedores", parametro);
+    }
 
+    public void reporte() {
+        switch (tipoDeOpereciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                btnReportesP.setText("Reportes");
+                btnEditarP.setText("Editar");
+                btnAgregarP.setDisable(false);
+                btnEliminarP.setDisable(false);
+                btnRegresarP.setDisable(false);
+                limpiarControles();
+                desactivarControles();
+                tipoDeOpereciones = operaciones.NULL;
+                cargarDatosProveedores();
+        }
+    }
+
+    /*
     public void cancelarAccion() {
         limpiarControles();
         desactivarControles();
@@ -339,6 +367,7 @@ public class MenuProveedoresController implements Initializable {
         btnReportesP.setDisable(false);
         tipoDeOpereciones = operaciones.NULL;
     }
+*/
 
     public void desactivarControles() {
         txtProveedoresID.setEditable(false);

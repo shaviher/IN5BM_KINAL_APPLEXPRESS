@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Clientes;
 
 import org.javierhernandez.db.Conexion;
+import org.javierhernandez.report.GenerarReportes;
 import org.javierhernandez.systen.Main;
 
 public class MenuClientesController implements Initializable {
@@ -225,13 +228,12 @@ public class MenuClientesController implements Initializable {
                 break;
             case ACTUALIZAR:
                 guardar();
-                desactivarControles();
+                limpiarControles();
                 btnAgregarC.setText("Agregar");
-                btnReportesC.setText("Cancelar");
                 btnAgregarC.setDisable(false);
                 btnReportesC.setDisable(false);
-                btnEliminarC.setDisable(true);
-                btnEditarC.setDisable(true);
+                btnEliminarC.setDisable(false);
+                btnEditarC.setDisable(false);
                 tipoDeOpereciones = operaciones.NULL;
                 break;
         }
@@ -303,6 +305,31 @@ public class MenuClientesController implements Initializable {
         }
     }
 
+    public void imprimirReporte() {
+        Map parametro = new HashMap();
+        parametro.put("IDCliente", null);
+        GenerarReportes.mostrarReportes("ReporteCliente.jasper", "Reporte de Cliente", parametro);
+    }
+
+    public void reporte() {
+        switch (tipoDeOpereciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                btnReportesC.setText("Reportes");
+                btnEditarC.setText("Editar");
+                btnAgregarC.setDisable(false);
+                btnEliminarC.setDisable(false);
+                btnRegresar.setDisable(false);
+                limpiarControles();
+                desactivarControles();
+                tipoDeOpereciones = operaciones.NULL;
+                cargarDatos();
+        }
+    }
+
+    /*
     public void cancelarAccion() {
         limpiarControles();
         desactivarControles();
@@ -317,6 +344,7 @@ public class MenuClientesController implements Initializable {
         btnReportesC.setDisable(false);
         tipoDeOpereciones = operaciones.NULL;
     }
+*/
 
     public void desactivarControles() {
         txtClienteID.setEditable(false);
