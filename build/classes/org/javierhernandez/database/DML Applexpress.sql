@@ -621,6 +621,21 @@ end //
 
 delimiter ;
 
+-- insertar total compra
+delimiter //
+create trigger tr_insertarTotalCompra_after_Insert
+after insert on DetalleCompra
+for each row
+	begin
+    declare total decimal(10,2);
+    
+    set total=((select sum(costoUnitario*cantidad) from DetalleCompra where DetalleCompra.IDCompra=new.IDCompra));
+    
+    call sp_actualizarComprasTotal(new.IDCompra, total);
+                                    
+	end //
+delimiter ;
+
 
 
 CALL sp_AgregarCliente(1, '1234567890', 'Juan', 'Pérez', 'Calle Principal', '12345678', 'juan@example.com');
