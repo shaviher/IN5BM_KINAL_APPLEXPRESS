@@ -81,10 +81,6 @@ public class MenuApplexpressController implements Initializable {
         } else if (event.getSource() == btnMenuDC) {
             escenarioPrincipal.menuDetalleCompraView();
         } else if (event.getSource() == btnMenuTelePro) {
-            escenarioPrincipal.menuTelefonoProveedorView();
-        } else if (event.getSource() == btnMenuEmalPro) {
-            escenarioPrincipal.menuEmailProveedorView();
-
         }
     }
 }

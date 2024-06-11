@@ -21,8 +21,6 @@ import org.javierhernandez.controller.MenuFacturaController;
 import org.javierhernandez.controller.MenuEmpleadosController;
 import org.javierhernandez.controller.MenuDetalleCompraController;
 import org.javierhernandez.controller.MenuDetalleFacturaController;
-import org.javierhernandez.controller.MenuTelefonoProveedorController;
-import org.javierhernandez.controller.MenuEmailProveedorController;
 
 public class Main extends Application {
 
@@ -164,23 +162,6 @@ public class Main extends Application {
         }
     }
     
-    public void menuTelefonoProveedorView(){
-        try{
-            MenuTelefonoProveedorController menuTelefonoProveedorView = (MenuTelefonoProveedorController) cambiarEscena("TelefonoProveedorView.fxml", 1020,587);
-            menuTelefonoProveedorView.setEscenarioPrincipal(this);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    
-    public void menuEmailProveedorView(){
-        try{
-            MenuEmailProveedorController menuEmailProveedorView = (MenuEmailProveedorController) cambiarEscena("EmailProveedorView.fxml",1020,587);
-            menuEmailProveedorView.setEscenarioPrincipal(this);
-        }catch(Exception e ){
-            e.printStackTrace();
-        }
-    }
   
     public static void main(String[] args) {
         launch(args);

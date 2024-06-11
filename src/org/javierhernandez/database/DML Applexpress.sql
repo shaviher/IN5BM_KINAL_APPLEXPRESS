@@ -11,6 +11,12 @@ BEGIN
 END$$
 DELIMITER ;
 
+CALL sp_AgregarCliente(1, '123456789', 'Juan', 'Perez', 'Calle Falsa 123', '12345678', 'juan.perez@example.com');
+CALL sp_AgregarCliente(2, '987654321', 'Maria', 'Gonzalez', 'Avenida Principal 456', '87654321', 'maria.gonzalez@example.com');
+CALL sp_AgregarCliente(3, '555555555', 'Pedro', 'Lopez', 'Calle Central 789', '33333333', 'pedro.lopez@example.com');
+CALL sp_AgregarCliente(4, '777777777', 'Ana', 'Martinez', 'Avenida Norte 246', '99999999', 'ana.martinez@example.com');
+CALL sp_AgregarCliente(5, '444444444', 'Luis', 'Sanchez', 'Calle Sur 135', '22222222', 'luis.sanchez@example.com');
+
 -- Listar clientes
 DELIMITER $$
 CREATE PROCEDURE sp_ListarClientes ()
@@ -78,6 +84,20 @@ BEGIN
     VALUES (IdTP, descr);
 END$$
 DELIMITER ;
+-- Agregar tipo de producto 1
+CALL sp_AgregarTipoProducto(1, 'Electrónicos');
+
+-- Agregar tipo de producto 2
+CALL sp_AgregarTipoProducto(2, 'Ropa');
+
+-- Agregar tipo de producto 3
+CALL sp_AgregarTipoProducto(3, 'Hogar');
+
+-- Agregar tipo de producto 4
+CALL sp_AgregarTipoProducto(4, 'Alimentos');
+
+-- Agregar tipo de producto 5
+CALL sp_AgregarTipoProducto(5, 'Libros');
 
 -- Listar Tipo Producto
 DELIMITER $$
@@ -132,6 +152,22 @@ BEGIN
     VALUES (IDCom, fechaDoc, descr);
 END$$
 DELIMITER ;
+
+-- Agregar compra 1
+CALL sp_AgregarCompras(1, '2024-06-10', 'Compra de suministros de oficina');
+
+-- Agregar compra 2
+CALL sp_AgregarCompras(2, '2024-06-11', 'Compra de equipos de computación');
+
+-- Agregar compra 3
+CALL sp_AgregarCompras(3, '2024-06-12', 'Compra de mobiliario para la oficina');
+
+-- Agregar compra 4
+CALL sp_AgregarCompras(4, '2024-06-13', 'Compra de materiales de construcción');
+
+-- Agregar compra 5
+CALL sp_AgregarCompras(5, '2024-06-14', 'Compra de productos electrónicos');
+
 
 -- Listar Compras
 DELIMITER $$
@@ -204,6 +240,21 @@ BEGIN
     VALUES (IdCE, nombre, descr);
 END$$
 DELIMITER ;
+-- Agregar cargo de empleado 1
+CALL sp_AgregarCargoEmpleado(1, 'Gerente de Ventas', 'Encargado de supervisar el equipo de ventas.');
+
+-- Agregar cargo de empleado 2
+CALL sp_AgregarCargoEmpleado(2, 'Asistente Administrativo', 'Apoyo en tareas administrativas y de oficina.');
+
+-- Agregar cargo de empleado 3
+CALL sp_AgregarCargoEmpleado(3, 'Analista de Datos', 'Responsable del análisis de datos y generación de informes.');
+
+-- Agregar cargo de empleado 4
+CALL sp_AgregarCargoEmpleado(4, 'Técnico de Soporte', 'Brinda asistencia técnica y solución de problemas informáticos.');
+
+-- Agregar cargo de empleado 5
+CALL sp_AgregarCargoEmpleado(5, 'Jefe de Producción', 'Supervisa la producción y garantiza la calidad del producto.');
+
 
 -- Listar CargoEmpleado
 DELIMITER $$
@@ -260,6 +311,12 @@ BEGIN
     VALUES (IDPro, nitPro, nombrePro, apellidoPro, direccionPro, razon, contactoPrin, pagWeb);
 END$$
 DELIMITER ;
+
+CALL sp_AgregarProveedor(1, '1234567890', 'Proveedor 1', 'ApellidoProveedor 1', 'Dirección Proveedor 1', 'Razón Social 1', 'Contacto Principal 1', 'www.paginaweb1.com');
+CALL sp_AgregarProveedor(2, '0987654321', 'Proveedor 2', 'ApellidoProveedor 2', 'Dirección Proveedor 2', 'Razón Social 2', 'Contacto Principal 2', 'www.paginaweb2.com');
+CALL sp_AgregarProveedor(3, '9876543210', 'Proveedor 3', 'ApellidoProveedor 3', 'Dirección Proveedor 3', 'Razón Social 3', 'Contacto Principal 3', 'www.paginaweb3.com');
+CALL sp_AgregarProveedor(4, '0123456789', 'Proveedor 4', 'ApellidoProveedor 4', 'Dirección Proveedor 4', 'Razón Social 4', 'Contacto Principal 4', 'www.paginaweb4.com');
+CALL sp_AgregarProveedor(5, '1122334455', 'Proveedor 5', 'ApellidoProveedor 5', 'Dirección Proveedor 5', 'Razón Social 5', 'Contacto Principal 5', 'www.paginaweb5.com');
 
 -- Listar Proveedor
 DELIMITER $$
@@ -333,6 +390,13 @@ BEGIN
     VALUES (IDProd, descrProducto, IdTp, IDPro);
 END $$
 DELIMITER ;
+
+CALL sp_AgregarProducto(1, 'Producto 1', 1, 1);
+CALL sp_AgregarProducto(2, 'Producto 2', 2, 2);
+CALL sp_AgregarProducto(3, 'Producto 3', 3, 3);
+CALL sp_AgregarProducto(4, 'Producto 4', 4, 4);
+CALL sp_AgregarProducto(5, 'Producto 5', 5, 5);
+
 
 -- Listar Producto
 DELIMITER $$
@@ -416,6 +480,13 @@ BEGIN
 END$$
 DELIMITER ;
 
+CALL sp_AgregarDetalleCompra(1, 10.50, 5, 1, 1);
+CALL sp_AgregarDetalleCompra(2, 15.75, 3, 2, 1);
+CALL sp_AgregarDetalleCompra(3, 20.00, 2, 3, 2);
+CALL sp_AgregarDetalleCompra(4, 12.99, 4, 4, 3);
+CALL sp_AgregarDetalleCompra(5, 8.50, 6, 5, 4);
+
+
 -- Listar Detalle Compra
 DELIMITER $$
 CREATE PROCEDURE sp_ListarDetalleCompra()
@@ -478,6 +549,13 @@ BEGIN
     VALUES (IDEmp, nomEmpleado, apeEmpleado, sueldo, dir, turn, IdCG);
 END $$
 DELIMITER ;
+
+CALL sp_AgregarEmpleado(1, 'Juan', 'Perez', 1500.00, 'Calle Principal 123', 'Matutino', 1);
+CALL sp_AgregarEmpleado(2, 'Maria', 'Gomez', 1800.00, 'Avenida Central 456', 'Vespertino', 2);
+CALL sp_AgregarEmpleado(3, 'Carlos', 'Lopez', 1600.00, 'Calle Secundaria 789', 'Nocturno', 3);
+CALL sp_AgregarEmpleado(4, 'Ana', 'Martinez', 1700.00, 'Calle Central 246', 'Matutino', 2);
+CALL sp_AgregarEmpleado(5, 'Pedro', 'Rodriguez', 1900.00, 'Avenida Principal 789', 'Vespertino', 1);
+
 
 -- Listar Empleado 
 DELIMITER &&
@@ -546,6 +624,12 @@ BEGIN
     VALUES (IdF, est, fecha, IdC, IdEmpl);
 END $$
 DELIMITER ;
+
+CALL sp_AgregarFactura(1, 'Pagado', '2024-06-10', 1, 1);
+CALL sp_AgregarFactura(2, 'Pendiente', '2024-06-11', 2, 2);
+CALL sp_AgregarFactura(3, 'Pagado', '2024-06-12', 3, 3);
+CALL sp_AgregarFactura(4, 'Pendiente', '2024-06-13', 4, 1);
+CALL sp_AgregarFactura(5, 'Pagado', '2024-06-14', 5, 2);
 
 -- Listar Factura
 DELIMITER $$
@@ -623,6 +707,11 @@ BEGIN
     VALUES (IdDF, Unit, cant, IdF, IdPro);
 END $$
 DELIMITER ;
+CALL sp_AgregarDetalleFactura(1, 50.00, 2, 1, 1);
+CALL sp_AgregarDetalleFactura(2, 30.00, 3, 1, 2);
+CALL sp_AgregarDetalleFactura(3, 40.00, 1, 2, 3);
+CALL sp_AgregarDetalleFactura(4, 20.00, 5, 3, 4);
+CALL sp_AgregarDetalleFactura(5, 35.00, 4, 4, 5);
 
 -- Listar Detalle Factura
 DELIMITER $$
