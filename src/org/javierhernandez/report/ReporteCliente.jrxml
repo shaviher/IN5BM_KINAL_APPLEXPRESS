@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed7d382d-9c2e-45ed-81f7-f574a2a73f87">
-	<property name="ireport.zoom" value="1.000000000000003"/>
+	<property name="ireport.zoom" value="1.3310000000000048"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -36,7 +36,7 @@
 		</band>
 	</background>
 	<title>
-		<band height="132" splitType="Stretch">
+		<band height="142" splitType="Stretch">
 			<staticText>
 				<reportElement x="208" y="62" width="133" height="40" forecolor="#FFFFFF" uuid="ce0ae92f-3908-4837-bb4a-917738ed3707"/>
 				<textElement textAlignment="Center">
@@ -47,30 +47,30 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="56" splitType="Stretch">
+		<band height="67" splitType="Stretch">
 			<staticText>
-				<reportElement x="68" y="15" width="100" height="20" forecolor="#FFFFFF" uuid="93150e47-6524-47d7-a40a-6a1060eadda2"/>
+				<reportElement x="68" y="28" width="100" height="20" forecolor="#FFFFFF" uuid="93150e47-6524-47d7-a40a-6a1060eadda2"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ID Cliente ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="15" width="100" height="20" forecolor="#FFFFFF" uuid="280d4711-25a1-4b9e-bcd5-2e6925c19b27"/>
+				<reportElement x="178" y="28" width="100" height="20" forecolor="#FFFFFF" uuid="280d4711-25a1-4b9e-bcd5-2e6925c19b27"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Nombre Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="398" y="15" width="100" height="20" forecolor="#FFFFFF" uuid="5a6b305a-c203-4fae-9747-0f573ab58028"/>
+				<reportElement x="398" y="28" width="100" height="20" forecolor="#FFFFFF" uuid="5a6b305a-c203-4fae-9747-0f573ab58028"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Direccion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="288" y="15" width="100" height="20" forecolor="#FFFFFF" uuid="11505020-feb1-4632-8b5f-a34f109d894b"/>
+				<reportElement x="288" y="28" width="100" height="20" forecolor="#FFFFFF" uuid="11505020-feb1-4632-8b5f-a34f109d894b"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProveedores" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f8b434-3091-4365-b4a4-49f093f38c58">
-	<property name="ireport.zoom" value="2.3579476910000023"/>
-	<property name="ireport.x" value="129"/>
-	<property name="ireport.y" value="505"/>
+	<property name="ireport.zoom" value="1.771561000000003"/>
+	<property name="ireport.x" value="367"/>
+	<property name="ireport.y" value="200"/>
 	<queryString>
 		<![CDATA[CALL sp_ListarProveedores()]]>
 	</queryString>
@@ -52,41 +52,45 @@
 	<pageHeader>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement x="150" y="29" width="89" height="20" uuid="ffa5dd3d-59b8-4ddb-8ffe-1abf421aad80"/>
+				<reportElement x="148" y="29" width="89" height="20" forecolor="#FFFFFF" uuid="ffa5dd3d-59b8-4ddb-8ffe-1abf421aad80"/>
 				<text><![CDATA[Nombre Proveedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="269" y="29" width="86" height="20" uuid="a1ac34c4-6466-4672-ac94-71bc1419896b"/>
+				<reportElement x="272" y="29" width="86" height="20" forecolor="#FFFFFF" uuid="a1ac34c4-6466-4672-ac94-71bc1419896b"/>
 				<text><![CDATA[Contacto Principal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="398" y="29" width="61" height="20" uuid="ee33ef1b-80ef-491d-a4f1-3c4e4df4d294"/>
+				<reportElement x="402" y="29" width="61" height="20" forecolor="#FFFFFF" uuid="ee33ef1b-80ef-491d-a4f1-3c4e4df4d294"/>
 				<text><![CDATA[Pagina Web]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="63" y="29" width="70" height="20" uuid="bba0ed27-d51d-41dd-9e3e-e37d0c9ccb06"/>
-				<text><![CDATA[ID Proveedores]]></text>
+				<reportElement x="105" y="29" width="14" height="20" forecolor="#FFFFFF" uuid="bba0ed27-d51d-41dd-9e3e-e37d0c9ccb06"/>
+				<text><![CDATA[ID ]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="61" splitType="Stretch">
 			<textField>
-				<reportElement x="150" y="21" width="101" height="20" uuid="e8c33194-0eab-4def-9274-bf5b7909f263"/>
+				<reportElement x="148" y="21" width="89" height="20" forecolor="#FFFFFF" uuid="e8c33194-0eab-4def-9274-bf5b7909f263"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nombreProveedor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="269" y="21" width="100" height="20" uuid="7b68aec0-25b5-4d03-bdb1-0c0bb5f86ccf"/>
+				<reportElement x="272" y="21" width="100" height="20" forecolor="#FFFFFF" uuid="7b68aec0-25b5-4d03-bdb1-0c0bb5f86ccf"/>
 				<textFieldExpression><![CDATA[$F{contactoPrincipal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="398" y="21" width="77" height="20" uuid="e49f0678-f5dd-41d8-8c04-c288dac6a35d"/>
+				<reportElement x="386" y="21" width="210" height="20" forecolor="#FFFFFF" uuid="e49f0678-f5dd-41d8-8c04-c288dac6a35d"/>
 				<textFieldExpression><![CDATA[$F{paginaWeb}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="91" y="21" width="17" height="20" uuid="0a97ab3b-88e4-495d-8261-84e7e4940ece"/>
+				<reportElement x="106" y="21" width="13" height="20" forecolor="#FFFFFF" uuid="0a97ab3b-88e4-495d-8261-84e7e4940ece"/>
 				<textFieldExpression><![CDATA[$F{IDProveedores}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="69" y="0" width="417" height="2" forecolor="#FFFFFF" uuid="d28013f7-f220-4d66-be7e-c929ae86b55e"/>
+			</line>
 		</band>
 	</detail>
 </jasperReport>
