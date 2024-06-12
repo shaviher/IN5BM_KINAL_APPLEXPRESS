@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuDetalleCompraController.java</file>
-            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuCargoEmpleadoController.java</file>
-            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuFacturaController.java</file>
-            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/report/GenerarReportes.java</file>
+            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/systen/Main.java</file>
+            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuDetalleFacturaController.java</file>
+            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuApplexpressController.java</file>
+            <file>file:/C:/Users/javih/OneDrive/Documentos/Kinal_Taller/IN5BM_KINAL_APPLEXPRESS/src/org/javierhernandez/controller/MenuProveedoresController.java</file>
         </group>
     </open-files>
 </project-private>

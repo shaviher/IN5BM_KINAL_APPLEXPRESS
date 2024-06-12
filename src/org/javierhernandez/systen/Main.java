@@ -155,7 +155,7 @@ public class Main extends Application {
     
     public void menuDetalleFacturaView(){
         try{
-            MenuDetalleFacturaController menuDetalleFacturaView = (MenuDetalleFacturaController) cambiarEscena("MenuDetalleFacturaController",1020,587);
+            MenuDetalleFacturaController menuDetalleFacturaView = (MenuDetalleFacturaController) cambiarEscena("DetalleFacturaView.fxml",1020,587);
             menuDetalleFacturaView.setEscenarioPrincipal(this);
         }catch(Exception e){
             e.printStackTrace();

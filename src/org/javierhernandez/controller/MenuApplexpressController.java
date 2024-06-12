@@ -40,8 +40,7 @@ public class MenuApplexpressController implements Initializable {
     MenuItem btnMenuDC;
     @FXML
     MenuItem btnMenuTelePro;
-    @FXML
-    MenuItem btnMenuEmalPro;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,7 +76,7 @@ public class MenuApplexpressController implements Initializable {
         } else if (event.getSource() == btnMenuEmpleados) {
             escenarioPrincipal.menuEmpleadosView();
         } else if (event.getSource() == btnMenuDF) {
-            escenarioPrincipal.menuDetalleCompraView();
+            escenarioPrincipal.menuDetalleFacturaView();
         } else if (event.getSource() == btnMenuDC) {
             escenarioPrincipal.menuDetalleCompraView();
         } else if (event.getSource() == btnMenuTelePro) {
