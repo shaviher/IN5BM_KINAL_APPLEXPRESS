@@ -113,3 +113,6 @@ create table DetalleFactura(
 	foreign key (IDDeFactura) references Factura(IDDeFactura) ON DELETE CASCADE,
 	foreign key (IDProducto) references Productos(IDProducto) ON DELETE CASCADE
 );
+
+
+    

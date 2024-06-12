@@ -1048,3 +1048,11 @@ for each row
           
 	end //
 delimiter ;
+
+
+select * from DetalleFactura 
+	join Factura on DetalleFactura.IDDetalleCompra = Factura.IDDetalleCompra
+	join Clientes on Factura.IDCliente = Clientes.IDCliente
+    join Productos on DetalleFactura.IDProducto = Productos.IDProducto
+    WHERE Factura.IDDeFactura = *;
+    

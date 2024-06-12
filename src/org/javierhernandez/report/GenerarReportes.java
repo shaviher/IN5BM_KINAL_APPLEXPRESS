@@ -14,12 +14,14 @@ import org.javierhernandez.db.Conexion;
  * @author javih
  */
 public class GenerarReportes {
-
     public static void mostrarReportes(String nombreReporte, String tituloReporte, Map parametro) {
-        InputStream reporte = GenerarReportes.class.getResourceAsStream(nombreReporte);
+        
         try {
-            JasperReport ReporteCliente = (JasperReport) JRLoader.loadObject(reporte);
-            JasperPrint ReporteImpreso = JasperFillManager.fillReport(ReporteCliente, parametro, Conexion.getInstancia().getConexion());// Administrar la impresion de los reporte atraves de lo parametros
+             InputStream reporte = GenerarReportes.class.getResourceAsStream(nombreReporte);
+            JasperReport Reporte = (JasperReport) JRLoader.loadObject(reporte);
+            
+            JasperPrint ReporteImpreso = JasperFillManager.fillReport(Reporte, parametro, Conexion.getInstancia().getConexion());// Administrar la impresion de los reporte atraves de lo parametros
+            
             JasperViewer visor = new JasperViewer(ReporteImpreso, false); //Administro la impresion y la vista previa del reporte 
             visor.setTitle(tituloReporte);
             visor.setVisible(true);

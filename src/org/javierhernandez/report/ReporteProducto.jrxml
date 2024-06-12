@@ -4,12 +4,15 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena, Productos.precioMayor, Productos.existencia, TipoProducto.descripcion, Proveedores.contactoPrincipal
+		<![CDATA[select Productos.IDProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena, Productos.precioMayor, Productos.existencia, TipoProducto.descripcion, Proveedores.contactoPrincipal
 from Productos
 inner join TipoProducto on Productos.idTipoProducto=TipoProducto.idTipoProducto
 inner join Proveedores on Productos.IDProveedores=Proveedores.IDProveedores;
 ]]>
 	</queryString>
+	<field name="IDProducto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="descripcionProducto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -43,21 +46,14 @@ inner join Proveedores on Productos.IDProveedores=Proveedores.IDProveedores;
 		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="49" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="259" y="25" width="100" height="20" uuid="02572c0d-36ce-4123-aee0-943e8a15769b"/>
+				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch"/>
-	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

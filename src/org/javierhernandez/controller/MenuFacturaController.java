@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +25,10 @@ import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Clientes;
 import org.javierhernandez.bean.Empleados;
 import org.javierhernandez.bean.Factura;
+import static org.javierhernandez.controller.MenuClientesController.operaciones.ACTUALIZAR;
+import static org.javierhernandez.controller.MenuClientesController.operaciones.NULL;
 import org.javierhernandez.db.Conexion;
+import org.javierhernandez.report.GenerarReportes;
 import org.javierhernandez.systen.Main;
 
 /**
@@ -407,7 +412,34 @@ public class MenuFacturaController implements Initializable {
                 }
         }
     }
-
+    
+     public void imprimirReporte(){
+        Map parametros = new HashMap();
+        
+        int facturaID = Integer.valueOf(((Factura)tblFactura.getSelectionModel().getSelectedItem()).getIDDeFactura());
+        parametros.put("facturaID", facturaID);
+        GenerarReportes.mostrarReportes("ReporteFactura.jasper", "Factura", parametros);
+    }
+    
+    
+    public void reporte() {
+        switch (tipoOperaciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                btnReportes.setText("Reportes");
+                btnEditar.setText("Editar");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                btnRegresar.setDisable(false);
+                limpiarControles();
+                desactivarControles();
+                tipoOperaciones =  operaciones.NULL;
+                CargarDatosFactura();
+        }
+    }
+    
     public void desactivarControles() {
         txtFacturaID.setEditable(false);
         txtEstado.setEditable(false);
@@ -435,18 +467,5 @@ public class MenuFacturaController implements Initializable {
         cmbEmpleadoID.setValue(null);
     }
 
-    public void cancelarAccion() {
-        limpiarControles();
-        desactivarControles();
-        btnAgregar.setText("Agregar");
-        btnEditar.setText("Editar");
-        btnEliminar.setText("Eliminar");
-        btnRegresar.setText("Regresar");
-        btnReportes.setText("Reportes");
-        btnAgregar.setDisable(false);
-        btnEditar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnReportes.setDisable(false);
-        tipoOperaciones = operaciones.NULL;
-    }
+   
 }

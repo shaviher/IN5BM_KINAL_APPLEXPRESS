@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -350,7 +352,6 @@ public class MenuEmpleadosController implements Initializable {
         }
     }
     
-
     public void activarControles() {
         txtEmpleadoID.setEditable(true);
         txtNombreEmpleado.setEditable(true);
