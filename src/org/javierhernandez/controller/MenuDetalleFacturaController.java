@@ -156,7 +156,7 @@ public class MenuDetalleFacturaController implements Initializable {
         ArrayList<Productos> lista = new ArrayList<>();
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_listarProductos()}");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_ListarProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
 
             while (resultado.next()) {
@@ -232,10 +232,11 @@ public class MenuDetalleFacturaController implements Initializable {
         registro.setCantidad(Integer.parseInt(txtCant.getText()));
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_agregarDetalleFactura(?,?,?)}");
-            procedimiento.setInt(1, registro.getCantidad());
-            procedimiento.setInt(2, registro.getIDDeFactura());
-            procedimiento.setInt(3, registro.getIDProducto());
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_agregarDetalleFactura(?,?,?,?)}");
+            procedimiento.setInt(1, registro.getIDDetalleFactura());
+            procedimiento.setInt(2, registro.getCantidad());
+            procedimiento.setInt(3, registro.getIDDeFactura());
+            procedimiento.setInt(4, registro.getIDProducto());
 
             procedimiento.execute();
         } catch (Exception e) {
@@ -253,12 +254,12 @@ public class MenuDetalleFacturaController implements Initializable {
         cbxProd.getSelectionModel().select(buscaProducto(codProd));
     }
 
-    public Productos buscaProducto(int codProd) {
+    public Productos buscaProducto(int IDPro) {
         Productos result = null;
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_buscarProductos(?)}");
-            procedimiento.setInt(1, codProd);
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_BuscarProducto(?)}");
+            procedimiento.setInt(1, IDPro);
 
             ResultSet registro = procedimiento.executeQuery();
 
@@ -285,18 +286,18 @@ public class MenuDetalleFacturaController implements Initializable {
         Factura result = null;
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_buscarFactura(?)}");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_BuscarFactura(?)}");
             procedimiento.setInt(1, codFact);
 
             ResultSet registro = procedimiento.executeQuery();
 
             while (registro.next()) {
-                result = new Factura(registro.getInt("numeroFactura"),
+                result = new Factura(registro.getInt("IDDeFactura"),
                         registro.getString("estado"),
                         registro.getDouble("totalFactura"),
                         registro.getString("fechaFactura"),
-                        registro.getInt("codigoCliente"),
-                        registro.getInt("codigoEmpleado"));
+                        registro.getInt("IDCliente"),
+                        registro.getInt("IDEmpleado"));
 
             }
         } catch (Exception e) {
@@ -321,7 +322,8 @@ public class MenuDetalleFacturaController implements Initializable {
             default:
                 if (tblDetalleFactura.getSelectionModel().getSelectedItem() != null) {
 
-                    int resp = JOptionPane.showConfirmDialog(null, "Confirmar eliminar el registro", "Eliminar Detalle Factura", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int resp = JOptionPane.showConfirmDialog(null, "Confirmar eliminar el registro", "Eliminar Detalle Factura", 
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                     if (resp == JOptionPane.YES_NO_OPTION) {
                         try {

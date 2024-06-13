@@ -269,21 +269,13 @@ public class MenuProductosController implements Initializable {
         registro.setIDProveedores(((Proveedores) cmbIDProveedor.getSelectionModel().getSelectedItem()).getIDProveedores());
         registro.setIdTipoProducto(((TipoProducto) cmbIDTipoProducto.getSelectionModel().getSelectedItem()).getIdTipoProducto());
         registro.setDescripcionProducto(txtDescripcionPro.getText());
-        registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
-        registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
-        registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
-        registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_AgregarProducto(?,?,?,?,?,?,?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_AgregarProducto(?,?,?,?)}");
             procedimiento.setInt(1, registro.getIDProducto());
             procedimiento.setString(2, registro.getDescripcionProducto());
-            procedimiento.setDouble(3, registro.getPrecioUnitario());
-            procedimiento.setDouble(4, registro.getPrecioDocena());
-            procedimiento.setDouble(5, registro.getPrecioMayor());
-            procedimiento.setInt(6, registro.getExistencia());
-            procedimiento.setInt(7, registro.getIDProveedores());
-            procedimiento.setInt(8, registro.getIdTipoProducto());
+            procedimiento.setInt(3, registro.getIDProveedores());
+            procedimiento.setInt(4, registro.getIdTipoProducto());
             procedimiento.execute();
 
             ListaProductos.add(registro);
@@ -294,27 +286,24 @@ public class MenuProductosController implements Initializable {
     }
 
     public void ActualizarProducto() {
+
+        Productos registro = (Productos) tblProductos.getSelectionModel().getSelectedItem();
+        registro.setIDProveedores(((Proveedores) cmbIDProveedor.getSelectionModel().getSelectedItem()).getIDProveedores());
+        registro.setIdTipoProducto(((TipoProducto) cmbIDTipoProducto.getSelectionModel().getSelectedItem()).getIdTipoProducto());
+        registro.setIDProducto(Integer.parseInt(txtProductosID.getText()));
+        registro.setDescripcionProducto(txtDescripcionPro.getText());
+        registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
+        registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
+        registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
+        registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
+        
+
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_ActualizarProducto(?,?,?,?,?,?,?,?)}");
-            Productos registro = (Productos) tblProductos.getSelectionModel().getSelectedItem();
-
-            registro.setIDProducto(Integer.parseInt(txtProductosID.getText()));
-            registro.setDescripcionProducto(txtDescripcionPro.getText());
-            registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
-            registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
-            registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
-            registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
-            registro.setIDProveedores(((Proveedores) cmbIDProveedor.getSelectionModel().getSelectedItem()).getIDProveedores());
-            registro.setIdTipoProducto(((TipoProducto) cmbIDTipoProducto.getSelectionModel().getSelectedItem()).getIdTipoProducto());
-
             procedimiento.setInt(1, registro.getIDProducto());
             procedimiento.setString(2, registro.getDescripcionProducto());
-            procedimiento.setDouble(3, registro.getPrecioUnitario());
-            procedimiento.setDouble(4, registro.getPrecioDocena());
-            procedimiento.setDouble(5, registro.getPrecioMayor());
-            procedimiento.setInt(6, registro.getExistencia());
-            procedimiento.setInt(7, registro.getIDProveedores());
-            procedimiento.setInt(8, registro.getIdTipoProducto());
+            procedimiento.setInt(3, registro.getIDProveedores());
+            procedimiento.setInt(4, registro.getIdTipoProducto());
             procedimiento.execute();
 
         } catch (Exception e) {
@@ -412,8 +401,8 @@ public class MenuProductosController implements Initializable {
                 break;
         }
     }
-    
-     public void imprimirReporte() {
+
+    public void imprimirReporte() {
         Map parametro = new HashMap();
         parametro.put("IDCliente", null);
         GenerarReportes.mostrarReportes("ReporteProducto.jasper", "Reporte de Producto", parametro);
@@ -436,8 +425,6 @@ public class MenuProductosController implements Initializable {
                 cargarDatosProductos();
         }
     }
-
-    
 
     public void activarControles() {
         txtProductosID.setEditable(true);
@@ -472,7 +459,7 @@ public class MenuProductosController implements Initializable {
         cmbIDProveedor.getSelectionModel().getSelectedItem();
         cmbIDTipoProducto.getSelectionModel().getSelectedItem();
     }
-/*
+    /*
     public void cancelarAccion() {
         limpiarControles();
         desactivarControles();

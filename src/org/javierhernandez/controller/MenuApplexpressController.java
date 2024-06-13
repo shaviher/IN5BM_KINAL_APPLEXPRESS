@@ -41,7 +41,6 @@ public class MenuApplexpressController implements Initializable {
     @FXML
     MenuItem btnMenuTelePro;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

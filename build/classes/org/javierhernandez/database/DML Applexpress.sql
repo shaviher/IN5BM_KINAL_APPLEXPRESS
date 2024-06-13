@@ -261,7 +261,7 @@ DELIMITER $$
 CREATE PROCEDURE sp_ListarCargoEmpleado ()
 BEGIN
     SELECT 
-    CargoEmpleadoidCargoEmpleado, 
+    CargoEmpleado.idCargoEmpleado, 
     CargoEmpleado.nombreCargo, 
     CargoEmpleado.descripcionCargo
     FROM CargoEmpleado;
@@ -273,7 +273,7 @@ DELIMITER $$
 CREATE PROCEDURE sp_BuscarCargoEmpleado(IN IdCE int)
 BEGIN
     SELECT 
-    CargoEmpleadoidCargoEmpleado, 
+    CargoEmpleado.idCargoEmpleado, 
     CargoEmpleado.nombreCargo, 
     CargoEmpleado.descripcionCargo
     FROM CargoEmpleado 
@@ -686,7 +686,7 @@ BEGIN
 	SET 
 		Factura.totalFactura=total
     WHERE
-		Factura.numeroFactura=numFac;
+		Factura.IDDeFactura=IdF;
 END $$
 DELIMITER ;
 
@@ -701,17 +701,17 @@ DELIMITER ;
 -- Detalle Fatura 
 -- Agregar Detalle Factura 
 DELIMITER $$
-CREATE PROCEDURE sp_AgregarDetalleFactura(IN IdDF INT, IN Unit DECIMAL(10,2),IN cant INT, IN IdF INT, IN IdPro INT)
+CREATE PROCEDURE sp_AgregarDetalleFactura(IN IdDF INT, IN cant INT, IN IdF INT, IN IdPro INT)
 BEGIN
-    INSERT INTO DetalleFactura (IDDetalleFactura, precioUnitario, cantidad, IDDeFactura, IDProducto)
-    VALUES (IdDF, Unit, cant, IdF, IdPro);
+    INSERT INTO DetalleFactura (IDDetalleFactura, cantidad, IDDeFactura, IDProducto)
+    VALUES (IdDF, cant, IdF, IdPro);
 END $$
 DELIMITER ;
-CALL sp_AgregarDetalleFactura(1, 50.00, 2, 1, 1);
-CALL sp_AgregarDetalleFactura(2, 30.00, 3, 1, 2);
-CALL sp_AgregarDetalleFactura(3, 40.00, 1, 2, 3);
-CALL sp_AgregarDetalleFactura(4, 20.00, 5, 3, 4);
-CALL sp_AgregarDetalleFactura(5, 35.00, 4, 4, 5);
+CALL sp_AgregarDetalleFactura(1, 2, 1, 1);
+CALL sp_AgregarDetalleFactura(2, 3, 1, 2);
+CALL sp_AgregarDetalleFactura(3, 1, 2, 3);
+CALL sp_AgregarDetalleFactura(4, 5, 3, 4);
+CALL sp_AgregarDetalleFactura(5, 4, 4, 5);
 
 -- Listar Detalle Factura
 DELIMITER $$
@@ -764,19 +764,18 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 -- traer el precio unitario
-DELIMITER $$
-CREATE FUNCTION fn_TraerPrecioUnitario(IDProd INT) RETURNS DECIMAL(10,2)
+delimiter //
+create function fn_TraerPrecioUnitario(IDPro int) returns decimal(10,2)
 deterministic
 begin
 	declare precio decimal(10,2);
 	set precio= (select DetalleCompra.costoUnitario from DetalleCompra
-    where DetalleCompra.IDProducto=IDProd);
+    where DetalleCompra.IDProducto=IDPro limit 1);
 	return precio;
 end //
-DELIMITER ;
 
+delimiter ;
 
 -- Precios Detalle factura
 -- insertar Precios Detalle factura
@@ -786,22 +785,23 @@ before insert on DetalleFactura
 for each row
 	begin
         set new.precioUnitario= (select precioUnitario from Productos
-		where Productos.IDProducto=new.IDProducto);
+		where Productos.IDProducto=new.IDProducto limit 1);
         
 	end //
 delimiter ;
 
 -- actualizar DetalleFactura
 delimiter $$
-create procedure sp_actualizarPrecioDetalleFactura(in IDProd varchar(15), in precUnit decimal(10,2) )
+create procedure sp_actualizarPrecioDetalleFactura(in IDPro varchar(15), in precUnit decimal(10,2) )
 begin
 	update DetalleFactura 
 	set 
 		DetalleFactura.precioUnitario=precUnit
     where
-		DetalleFactura.IDProducto=IDProd;
+		DetalleFactura.IDProducto=IDPro;
 end $$
 delimiter ;
+
 
 -- actualizar Precios Detalle factura
 delimiter //
@@ -810,7 +810,7 @@ after update on Productos
 for each row
 	begin
 		call sp_actualizarPrecioDetalleFactura(new.IDProducto,
-        (select new.precioUnitario from Productos where Productos.IDProducto=new.IDProducto));
+        (select new.precioUnitario from Productos where Productos.IDProducto=new.IDProducto limit 1));
         
 	end //
 delimiter ;
@@ -845,6 +845,7 @@ for each row
 	end //
 delimiter ;
 
+
 -- eliminar precios en Productos
 delimiter //
 create trigger tr_eliminarPreciosProductos_after_delete
@@ -863,14 +864,15 @@ create trigger tr_insertarTotalCompra_after_Insert
 after insert on DetalleCompra
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=((select sum(costoUnitario*cantidad) from DetalleCompra where DetalleCompra.IDDetalleCompra=new.IDDetalleCompra));
+    set total=((select sum(costoUnitario*cantidad) from DetalleCompra where DetalleCompra.IDCompra=new.IDCompra ));
     
-    call sp_actualizarComprasTotal(new.IDDetalleCompra, totalDocumento);
+    call sp_actualizarComprasTotal(new.IDCompra, total);
                                     
 	end //
 delimiter ;
+
 
 -- actualizar total compra
 delimiter //
@@ -878,24 +880,24 @@ create trigger tr_actualizarTotalCompra_after_update
 after update on DetalleCompra
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=((select sum(new.costoUnitario*new.cantidad) from DetalleCompra where DetalleCompra.IDDetalleCompra=new.IDDetalleCompra));
+    set total=((select sum(new.costoUnitario*new.cantidad) from DetalleCompra where DetalleCompra.IDCompra=new.IDCompra ));
     
-    call sp_actualizarComprasTotal(new.IDDetalleCompra, totalDocumento);
+    call sp_actualizarComprasTotal(new.IDCompra, total);
                                     
 	end //
 delimiter ;
 
 -- total compra
 delimiter //
-create function fn_TotalCompra(IDDetalleCompra int) returns decimal(10,2)
+create function fn_TotalCompra(IdFac int) returns decimal(10,2)
 deterministic
 begin
     declare sumatoria decimal(10,2);
     
     set sumatoria = (select sum(cantidad*costoUnitario) from DetalleCompra 
-					where IDDetalleCompra=IDDetalleCompra) ;
+					where IDDeFactura=IdFac ) ;
     return sumatoria;
 end //
 delimiter ;
@@ -906,11 +908,11 @@ create trigger tr_eliminarTotalCompra_after_delete
 after delete on DetalleCompra
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=fn_TotalCompra(old.IDDetalleCompra);
+    set total=fn_TotalCompra(old.IDCompra);
     
-    call sp_actualizarComprasTotal(old.IDDetalleCompra, totalDocumento);
+    call sp_actualizarComprasTotal(old.IDCompra, total);
                                     
 	end //
 delimiter ;
@@ -922,11 +924,12 @@ create trigger tr_insertarTotalFactura_after_Insert
 after insert on DetalleFactura
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=((select sum(precioUnitario*cantidad) from DetalleFactura where DetalleFactura.IDDeFactura=new.IDDeFactura ));
+    set total=((select sum(precioUnitario*cantidad) from DetalleFactura where DetalleFactura.IDDeFactura=new.IDDeFactura ));
     
-    call sp_actualizarFacturaTotal(new.IDDeFactura, totalDocumento);
+    call sp_actualizarFacturaTotal(new.IDDeFactura, total);
+    
                                     
 	end //
 delimiter ;
@@ -937,11 +940,11 @@ create trigger tr_actualizarTotalFactura_after_update
 after update on DetalleFactura
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=((select sum(new.precioUnitario*cantidad) from DetalleFactura where DetalleFactura.IDDeFactura=new.IDDeFactura ));
+    set total=((select sum(new.precioUnitario*cantidad) from DetalleFactura where DetalleFactura.IDDeFactura=new.IDDeFactura ));
     
-    call sp_actualizarFacturaTotal(new.IDDeFactura, totalDocumento);
+    call sp_actualizarFacturaTotal(new.IDDeFactura, total);
                                     
 	end //
 delimiter ;
@@ -949,13 +952,13 @@ delimiter ;
 
 -- total factura
 delimiter //
-create function fn_TotalFactura(IdF int) returns decimal(10,2)
+create function fn_TotalFactura(numFact int) returns decimal(10,2)
 deterministic
 begin
     declare sumatoria decimal(10,2);
     
     set sumatoria = (select sum(precioUnitario*cantidad) from DetalleFactura 
-					where IDDeFactura=IdF) ;
+					where IDDeFactura=numFact) ;
     return sumatoria;
 end //
 delimiter ;
@@ -966,11 +969,11 @@ create trigger tr_eliminarTotalFactura_after_delete
 after delete on DetalleFactura
 for each row
 	begin
-    declare totalDocumento decimal(10,2);
+    declare total decimal(10,2);
     
-    set totalDocumento=fn_TotalFactura(old.IDDeFactura);
+    set total=fn_TotalFactura(old.IDDeFactura);
     
-    call sp_actualizarFacturaTotal(old.IDDeFactura, totalDocumento);
+    call sp_actualizarFacturaTotal(old.IDDeFactura, total);
                                     
 	end //
 delimiter ;
@@ -979,80 +982,74 @@ delimiter ;
 -- existencias
 -- proceso almacenado
 delimiter $$
-create procedure sp_actualizarExistenciaProductos(in IDProd varchar(15), in exist int )
+create procedure sp_actualizarExistenciaProductos(in IdPro varchar(15), in exist int )
 begin
 	update Productos 
 	set 
 		Productos.existencia=exist
     where
-		Productos.IDProducto=IDProd;
+		Productos.IDProducto=IdPro;
 end $$
 delimiter ;
 
 -- traer el precio unitario
 delimiter //
-create function fn_TraerExistencias(IDProd varchar(15)) returns int
+create function fn_TraerExistencias(IdPro int) returns int
 deterministic
 begin
 	declare existencias int;
-	set existencias= (select existencia from Productos where IDProducto=IDProd);
+	set existencias= (select existencia from Productos where IDProducto=IdPro limit 1);
 	return existencias;
 end //
 
 delimiter ;
 
-
--- trigger
 delimiter //
-create trigger tr_actualizarExistencias_before_insert
-before insert on DetalleFactura
+create trigger tr_insertarExistenciasProductos_after_insert
+before insert on Productos
 for each row
 	begin
-		declare exist int;
-        declare cant int;
-        
-        set cant = new.cantidad;
-		set exist= fn_TraerExistencias(new.IDProducto);
-        
-        if (exist > cant) then
-        
-			set exist=exist-cant;
-			
-			call sp_actualizarExistenciaProductos(new.IDProducto, exist);
-            
-		elseif (exist = cant) then
-        
-			set exist=exist-cant;
-			
-			call sp_actualizarExistenciaProductos(new.IDProducto, exist);
-        
-        else
-			signal sqlstate "45000" set message_text = "supera el numero de existencias o no hay existencias";
-        end if;
-                           
+		set new.existencia=0;          
 	end //
 delimiter ;
 
-
 -- trigger
 delimiter //
-create trigger tr_actualizarCantidad_before_insert
+create trigger tr_insertarNuevasExistenciasProductos_after_insert
 after insert on DetalleCompra
 for each row
 	begin
-		  declare cant int;
-          
-          set cant = (select existencia from Productos where IDProducto=new.IDProducto);
-          
-          call sp_actualizarExistenciaProductos(new.IDProducto, (cant+new.cantidad));
-          
+		declare cant int;
+		
+        set cant= (select existencia from Productos where Productos.IDProducto=new.IDProducto);
+        
+		update Productos
+        set
+			Productos.existencia=new.cantidad+cant,
+            Productos.precioUnitario=new.costoUnitario
+        where
+            Productos.IDProducto=new.IDProducto;             
 	end //
 delimiter ;
 
+CALL sp_ListarClientes();
+CALL sp_ListarTipoProducto();
+CALL sp_ListarCompras();
+CALL sp_ListarCargoEmpleado();
+CALL sp_ListarProveedores();
+CALL sp_ListarProducto();
+CALL sp_ListarDetalleCompra();
+CALL sp_ListarEmpleado();
+CALL sp_ListarFactura();
+CALL sp_ListarDetalleFactura();
 
-select * from DetalleFactura 
-	join Factura on DetalleFactura.IDDetalleCompra = Factura.IDDetalleCompra
-	join Clientes on Factura.IDCliente = Clientes.IDCliente
-    join Productos on DetalleFactura.IDProducto = Productos.IDProducto
-    WHERE Factura.IDDeFactura = *;
-    
+CALL sp_BuscarClientes(1);
+CALL sp_BuscarTipoProducto(1);
+CALL sp_buscarCompras(1);
+CALL sp_BuscarCargoEmpleado(1);
+CALL sp_BuscarProveedor(1);
+CALL sp_BuscarProducto(1);
+CALL sp_BuscarDetalleCompra(1);
+CALL sp_BuscarEmpleados(1);
+CALL sp_BuscarFactura(1);
+CALL sp_BuscarDetalleFactura(1);

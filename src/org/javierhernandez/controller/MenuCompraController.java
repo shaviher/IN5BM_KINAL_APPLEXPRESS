@@ -147,14 +147,12 @@ public class MenuCompraController implements Initializable {
         registro.setIDCompra(Integer.parseInt(txtComprasID.getText()));
         registro.setFechaDocumento(txtFechaCompras.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         registro.setDescripcion(txtDescripcionCompras.getText());
-        registro.setTotalDocumento(parseDouble(txtTotalCompras.getText()));
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{ CALL sp_AgregarCompras(?,?,?,?) }");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{ CALL sp_AgregarCompras(?,?,?) }");
             procedimiento.setInt(1, registro.getIDCompra());
             procedimiento.setString(2, registro.getFechaDocumento());
             procedimiento.setString(3, registro.getDescripcion());
-            procedimiento.setDouble(4, registro.getTotalDocumento());
 
             procedimiento.execute();
             listaCompras.add(registro);
@@ -194,17 +192,23 @@ public class MenuCompraController implements Initializable {
                 btnReportesCo.setDisable(false);
                 btnEliminarCo.setDisable(true);
                 btnEditarCo.setDisable(true);
+                txtTotalCompras.setEditable(false);
+                
                 tipoDeOpereciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
                 guardarCompras();
                 desactivarControles();
+                limpiarControles();
+                cargarDatosCompras();
                 btnAgregarCo.setText("Agregar");
                 btnReportesCo.setText("Cancelar");
+                txtTotalCompras.setEditable(true);
                 btnAgregarCo.setDisable(false);
                 btnReportesCo.setDisable(false);
-                btnEliminarCo.setDisable(true);
-                btnEditarCo.setDisable(true);
+                btnEliminarCo.setDisable(false);
+                btnEditarCo.setDisable(false);
+                
                 tipoDeOpereciones = operaciones.NULL;
                 break;
         }

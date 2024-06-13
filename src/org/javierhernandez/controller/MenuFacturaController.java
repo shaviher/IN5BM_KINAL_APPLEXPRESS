@@ -25,8 +25,6 @@ import javax.swing.JOptionPane;
 import org.javierhernandez.bean.Clientes;
 import org.javierhernandez.bean.Empleados;
 import org.javierhernandez.bean.Factura;
-import static org.javierhernandez.controller.MenuClientesController.operaciones.ACTUALIZAR;
-import static org.javierhernandez.controller.MenuClientesController.operaciones.NULL;
 import org.javierhernandez.db.Conexion;
 import org.javierhernandez.report.GenerarReportes;
 import org.javierhernandez.systen.Main;
@@ -273,19 +271,17 @@ public class MenuFacturaController implements Initializable {
         Factura registro = new Factura();
         registro.setIDDeFactura(Integer.parseInt(txtFacturaID.getText()));
         registro.setEstado(txtEstado.getText());
-        registro.setTotalFactura(Double.parseDouble(txtTotalFactura.getText()));
         registro.setFechaFactura(DpFechaFactura.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         registro.setIDCliente(((Clientes) cmbClienteID.getSelectionModel().getSelectedItem()).getIDCliente());
         registro.setIDEmpleado(((Empleados) cmbEmpleadoID.getSelectionModel().getSelectedItem()).getIDEmpleado());
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_AgregarFactura(?, ?, ?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_AgregarFactura(?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getIDDeFactura());
             procedimiento.setString(2, registro.getEstado());
-            procedimiento.setDouble(3, registro.getTotalFactura());
-            procedimiento.setString(4, registro.getFechaFactura());
-            procedimiento.setInt(5, registro.getIDEmpleado());
-            procedimiento.setInt(6, registro.getIDCliente());
+            procedimiento.setString(3, registro.getFechaFactura());
+            procedimiento.setInt(4, registro.getIDEmpleado());
+            procedimiento.setInt(5, registro.getIDCliente());
 
             procedimiento.execute();
 
