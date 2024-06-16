@@ -83,21 +83,13 @@ BEGIN
     INSERT INTO TipoProducto (idTipoProducto, descripcion)
     VALUES (IdTP, descr);
 END$$
-DELIMITER ;
--- Agregar tipo de producto 1
-CALL sp_AgregarTipoProducto(1, 'Electrónicos');
+DELIMITER ; 
 
--- Agregar tipo de producto 2
-CALL sp_AgregarTipoProducto(2, 'Ropa');
-
--- Agregar tipo de producto 3
-CALL sp_AgregarTipoProducto(3, 'Hogar');
-
--- Agregar tipo de producto 4
-CALL sp_AgregarTipoProducto(4, 'Alimentos');
-
--- Agregar tipo de producto 5
-CALL sp_AgregarTipoProducto(5, 'Libros');
+CALL sp_AgregarTipoProducto(1, 'Frutas');
+CALL sp_AgregarTipoProducto(2, 'Verduras');
+CALL sp_AgregarTipoProducto(3, 'Productos de limpieza');
+CALL sp_AgregarTipoProducto(4, 'Carnes y pescados');
+CALL sp_AgregarTipoProducto(5, 'Productos lácteos');
 
 -- Listar Tipo Producto
 DELIMITER $$
@@ -153,20 +145,11 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Agregar compra 1
-CALL sp_AgregarCompras(1, '2024-06-10', 'Compra de suministros de oficina');
-
--- Agregar compra 2
-CALL sp_AgregarCompras(2, '2024-06-11', 'Compra de equipos de computación');
-
--- Agregar compra 3
-CALL sp_AgregarCompras(3, '2024-06-12', 'Compra de mobiliario para la oficina');
-
--- Agregar compra 4
-CALL sp_AgregarCompras(4, '2024-06-13', 'Compra de materiales de construcción');
-
--- Agregar compra 5
-CALL sp_AgregarCompras(5, '2024-06-14', 'Compra de productos electrónicos');
+CALL sp_AgregarCompras(1, '2024-06-16', 'Compra de productos de limpieza');
+CALL sp_AgregarCompras(2, '2024-06-15', 'Compra de frutas y verduras frescas');
+CALL sp_AgregarCompras(3, '2024-06-14', 'Compra de carne y pescado para la semana');
+CALL sp_AgregarCompras(4, '2024-06-13', 'Compra de productos lácteos y huevos');
+CALL sp_AgregarCompras(5, '2024-06-12', 'Compra de productos enlatados y no perecederos');
 
 
 -- Listar Compras
@@ -240,20 +223,12 @@ BEGIN
     VALUES (IdCE, nombre, descr);
 END$$
 DELIMITER ;
--- Agregar cargo de empleado 1
-CALL sp_AgregarCargoEmpleado(1, 'Gerente de Ventas', 'Encargado de supervisar el equipo de ventas.');
 
--- Agregar cargo de empleado 2
-CALL sp_AgregarCargoEmpleado(2, 'Asistente Administrativo', 'Apoyo en tareas administrativas y de oficina.');
-
--- Agregar cargo de empleado 3
-CALL sp_AgregarCargoEmpleado(3, 'Analista de Datos', 'Responsable del análisis de datos y generación de informes.');
-
--- Agregar cargo de empleado 4
-CALL sp_AgregarCargoEmpleado(4, 'Técnico de Soporte', 'Brinda asistencia técnica y solución de problemas informáticos.');
-
--- Agregar cargo de empleado 5
-CALL sp_AgregarCargoEmpleado(5, 'Jefe de Producción', 'Supervisa la producción y garantiza la calidad del producto.');
+CALL sp_AgregarCargoEmpleado(1, 'Gerente', 'Encargado de la gestión general del negocio');
+CALL sp_AgregarCargoEmpleado(2, 'Cajero', 'Responsable de las transacciones y pagos en caja');
+CALL sp_AgregarCargoEmpleado(3, 'Reponedor', 'Encargado de reponer productos en los estantes');
+CALL sp_AgregarCargoEmpleado(4, 'Vendedor', 'Encargado de atender a los clientes y promover ventas');
+CALL sp_AgregarCargoEmpleado(5, 'Auxiliar de limpieza', 'Responsable de mantener la limpieza y orden del establecimiento');
 
 
 -- Listar CargoEmpleado
@@ -394,6 +369,12 @@ BEGIN
 END $$
 DELIMITER ;
 
+CALL sp_AgregarProducto(1, 'Manzanas Granny Smith', 1, 1);
+CALL sp_AgregarProducto(2, 'Lechuga Iceberg', 2, 2);
+CALL sp_AgregarProducto(3, 'Detergente líquido', 3, 3);
+CALL sp_AgregarProducto(4, 'Filete de salmón', 4, 4);
+CALL sp_AgregarProducto(5, 'Yogur natural', 5, 5);
+
 
 -- Listar Producto
 DELIMITER $$
@@ -479,6 +460,12 @@ BEGIN
 		VALUES(IdDC, Uni, cant, IDPro, IDComp);
 END$$
 DELIMITER ;
+
+CALL sp_AgregarDetalleCompra(1, 2.50, 5, 1, 1);
+CALL sp_AgregarDetalleCompra(2, 1.75, 3, 2, 1);
+CALL sp_AgregarDetalleCompra(3, 3.00, 2, 3, 2);
+CALL sp_AgregarDetalleCompra(4, 8.50, 1, 4, 3);
+CALL sp_AgregarDetalleCompra(5, 0.75, 10, 5, 4);
 
 
 
@@ -702,6 +689,12 @@ BEGIN
     VALUES (IdDF, cant, IdF, IDProd);
 END $$
 DELIMITER ;
+
+CALL sp_AgregarDetalleFactura(1, 3, 1, 1);
+CALL sp_AgregarDetalleFactura(2, 2, 1, 2);
+CALL sp_AgregarDetalleFactura(3, 1, 2, 3);
+CALL sp_AgregarDetalleFactura(4, 4, 3, 4);
+CALL sp_AgregarDetalleFactura(5, 5, 4, 5);
 
 -- Listar Detalle Factura
 DELIMITER $$
