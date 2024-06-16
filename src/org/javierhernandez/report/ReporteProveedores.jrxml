@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProveedores" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f8b434-3091-4365-b4a4-49f093f38c58">
-	<property name="ireport.zoom" value="1.771561000000003"/>
-	<property name="ireport.x" value="367"/>
-	<property name="ireport.y" value="200"/>
+	<property name="ireport.zoom" value="0.9090909090909131"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="44"/>
 	<queryString>
 		<![CDATA[CALL sp_ListarProveedores()]]>
 	</queryString>
@@ -33,64 +33,79 @@
 	<background>
 		<band height="802" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="2" width="555" height="800" uuid="4126e5a9-d682-4593-8ba0-616013e5fc2c"/>
-				<imageExpression><![CDATA["C:\\Users\\javih\\OneDrive\\Documentos\\Kinal_Taller\\IN5BM_KINAL_APPLEXPRESS\\src\\org\\javierhernandez\\imagen\\ReporteCliente.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="555" height="802" uuid="92104a9a-c496-442a-95b9-9ca70f82641d"/>
+				<imageExpression><![CDATA["C:\\Users\\javih\\OneDrive\\Documentos\\Kinal_Taller\\IN5BM_KINAL_APPLEXPRESS\\src\\org\\javierhernandez\\imagen\\ReporteProveedores.png"]]></imageExpression>
 			</image>
 		</band>
 	</background>
 	<title>
-		<band height="139" splitType="Stretch">
-			<staticText>
-				<reportElement x="177" y="62" width="198" height="40" forecolor="#FFFFFF" uuid="1f69b1e7-6867-4d8b-8507-9cabf2e61820"/>
-				<textElement>
-					<font size="30" isBold="true"/>
+		<band height="150" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="31" y="114" width="162" height="24" forecolor="#73020C" uuid="5221162a-496a-40e6-ab21-27ad3793148b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="16" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Proveedores]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement x="148" y="29" width="89" height="20" forecolor="#FFFFFF" uuid="ffa5dd3d-59b8-4ddb-8ffe-1abf421aad80"/>
-				<text><![CDATA[Nombre Proveedor]]></text>
+				<reportElement x="64" y="40" width="100" height="20" forecolor="#FFFED1" uuid="2f51ee37-e1a7-4769-bb0e-9ac600be4eb7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="12"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="272" y="29" width="86" height="20" forecolor="#FFFFFF" uuid="a1ac34c4-6466-4672-ac94-71bc1419896b"/>
-				<text><![CDATA[Contacto Principal]]></text>
+				<reportElement x="176" y="40" width="100" height="20" forecolor="#FFFED1" uuid="36a5fedd-c9fa-43df-8143-008d8db85c8f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="12"/>
+				</textElement>
+				<text><![CDATA[Contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="402" y="29" width="61" height="20" forecolor="#FFFFFF" uuid="ee33ef1b-80ef-491d-a4f1-3c4e4df4d294"/>
-				<text><![CDATA[Pagina Web]]></text>
+				<reportElement x="400" y="40" width="100" height="20" forecolor="#FFFED1" uuid="ecf83167-d654-4b72-8c45-66f6fdea2faa"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="12"/>
+				</textElement>
+				<text><![CDATA[Direccion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="29" width="14" height="20" forecolor="#FFFFFF" uuid="bba0ed27-d51d-41dd-9e3e-e37d0c9ccb06"/>
-				<text><![CDATA[ID ]]></text>
+				<reportElement x="287" y="40" width="100" height="20" forecolor="#FFFED1" uuid="3ebc3e4d-5a92-47c7-84cb-9689a12d7ba3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="12"/>
+				</textElement>
+				<text><![CDATA[NIT]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="61" splitType="Stretch">
+		<band height="53" splitType="Stretch">
+			<line>
+				<reportElement x="73" y="49" width="417" height="2" forecolor="#FFFED1" uuid="d28013f7-f220-4d66-be7e-c929ae86b55e"/>
+			</line>
 			<textField>
-				<reportElement x="148" y="21" width="89" height="20" forecolor="#FFFFFF" uuid="e8c33194-0eab-4def-9274-bf5b7909f263"/>
+				<reportElement x="73" y="21" width="100" height="20" forecolor="#FFFED1" uuid="753a2479-4c79-4399-846b-515bd8510d84"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nombreProveedor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="272" y="21" width="100" height="20" forecolor="#FFFFFF" uuid="7b68aec0-25b5-4d03-bdb1-0c0bb5f86ccf"/>
+				<reportElement x="176" y="21" width="100" height="20" forecolor="#FFFED1" uuid="6d262fb5-fe99-4508-959a-94c81368b8f1"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{contactoPrincipal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="386" y="21" width="210" height="20" forecolor="#FFFFFF" uuid="e49f0678-f5dd-41d8-8c04-c288dac6a35d"/>
-				<textFieldExpression><![CDATA[$F{paginaWeb}]]></textFieldExpression>
+				<reportElement x="397" y="21" width="100" height="20" forecolor="#FFFED1" uuid="f53aa779-5ef1-4023-9cac-34ebdcdf01f0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{direccionProveedor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="106" y="21" width="13" height="20" forecolor="#FFFFFF" uuid="0a97ab3b-88e4-495d-8261-84e7e4940ece"/>
-				<textFieldExpression><![CDATA[$F{IDProveedores}]]></textFieldExpression>
+				<reportElement x="284" y="21" width="100" height="20" forecolor="#FFFED1" uuid="c1ddd973-e830-40f8-b628-babdd58e23a8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nitProveedor}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="69" y="0" width="417" height="2" forecolor="#FFFFFF" uuid="d28013f7-f220-4d66-be7e-c929ae86b55e"/>
-			</line>
 		</band>
 	</detail>
 </jasperReport>

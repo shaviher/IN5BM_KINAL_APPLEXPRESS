@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProducto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="403a0fc7-a4ee-4916-8fe8-5a98a3810102">
-	<property name="ireport.zoom" value="1.331000000000004"/>
+	<property name="ireport.zoom" value="1.2100000000000095"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="13"/>
+	<property name="ireport.y" value="76"/>
 	<queryString>
-		<![CDATA[select Productos.IDProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena, Productos.precioMayor, Productos.existencia, TipoProducto.descripcion, Proveedores.contactoPrincipal
+		<![CDATA[select Productos.IDProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena, Productos.precioMayor, Productos.existencia, TipoProducto.descripcion, Proveedores.contactoPrincipal, Proveedores.nombreProveedor
 from Productos
 inner join TipoProducto on Productos.idTipoProducto=TipoProducto.idTipoProducto
 inner join Proveedores on Productos.IDProveedores=Proveedores.IDProveedores;]]>
@@ -33,90 +33,96 @@ inner join Proveedores on Productos.IDProveedores=Proveedores.IDProveedores;]]>
 	<field name="contactoPrincipal" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nombreProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band height="802" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="2" width="555" height="800" uuid="fa17ca17-55bc-4473-8978-e59ccf4ac6b7"/>
-				<imageExpression><![CDATA["C:\\Users\\javih\\OneDrive\\Documentos\\Kinal_Taller\\IN5BM_KINAL_APPLEXPRESS\\src\\org\\javierhernandez\\imagen\\ReporteCliente.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="555" height="802" uuid="76350f29-8a0a-4715-aa1a-3b108f93a1cd"/>
+				<imageExpression><![CDATA["C:\\Users\\javih\\OneDrive\\Documentos\\Kinal_Taller\\IN5BM_KINAL_APPLEXPRESS\\src\\org\\javierhernandez\\imagen\\ReporteProducto.png"]]></imageExpression>
 			</image>
 		</band>
 	</background>
 	<title>
-		<band height="101" splitType="Stretch">
-			<staticText>
-				<reportElement x="204" y="61" width="133" height="40" forecolor="#FFFFFF" uuid="ad747e5c-8697-4fa0-81a4-da5b1e4542f2"/>
+		<band height="138" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="31" y="114" width="162" height="24" forecolor="#73020C" uuid="459907bc-66a9-4798-a90b-c38e94417c26"/>
 				<textElement textAlignment="Center">
-					<font size="30" isBold="true"/>
+					<font fontName="Berlin Sans FB" size="16" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Productos]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="94" splitType="Stretch">
+		<band height="77" splitType="Stretch">
 			<staticText>
-				<reportElement x="74" y="61" width="59" height="20" forecolor="#FFFFFF" uuid="f92a49d5-704c-439a-aea5-3d8d991e1567"/>
-				<textElement>
-					<font size="14" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="158" y="61" width="115" height="20" forecolor="#FFFFFF" uuid="8eab5656-4cb0-41ad-a02c-00a9269e18bd"/>
-				<textElement>
-					<font size="14" isBold="true" isItalic="true"/>
+				<reportElement x="239" y="53" width="64" height="20" forecolor="#FFFED1" uuid="535d7515-fe7f-4427-b11b-258b18ae8168"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB"/>
 				</textElement>
 				<text><![CDATA[Precio Unitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="61" width="100" height="20" forecolor="#FFFFFF" uuid="0011b76f-7c0e-46f6-bdb6-610718f2e28a"/>
-				<textElement>
-					<font size="14" isBold="true" isItalic="true"/>
+				<reportElement x="143" y="53" width="67" height="20" forecolor="#FFFED1" uuid="a5fb4438-8fef-421f-802e-dc8c6022f948"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="53" width="69" height="20" forecolor="#FFFED1" uuid="667e3312-6bc4-4323-bc95-d9050c057624"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB"/>
 				</textElement>
 				<text><![CDATA[Precio Docena]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="403" y="61" width="100" height="20" forecolor="#FFFFFF" uuid="31e944bb-ee3b-4209-9ce5-bac7f23cab64"/>
-				<textElement>
-					<font size="14" isBold="true" isItalic="true"/>
+				<reportElement x="426" y="53" width="63" height="20" forecolor="#FFFED1" uuid="5d086e04-6f1b-45d9-8ab5-924d380266c7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB"/>
 				</textElement>
-				<text><![CDATA[Descripcion]]></text>
+				<text><![CDATA[Precio Mayor]]></text>
 			</staticText>
-			<line>
-				<reportElement x="74" y="92" width="417" height="2" forecolor="#FFFFFF" uuid="daab5e51-4870-4782-b23c-7f8d9acf742e"/>
-			</line>
+			<staticText>
+				<reportElement x="59" y="53" width="56" height="20" forecolor="#FFFED1" uuid="8afb6415-a44c-4014-9921-4f621a40104d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
+	<detail>
+		<band height="50">
 			<textField>
-				<reportElement x="311" y="11" width="41" height="20" forecolor="#FFFFFF" uuid="3a4d5aeb-0a07-4517-9ed1-a4244ac44870"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{precioDocena}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="74" y="11" width="113" height="20" forecolor="#FFFFFF" uuid="0d50261d-e3c3-4343-bec2-e813263e72ee"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
+				<reportElement x="125" y="25" width="100" height="20" forecolor="#FFFED1" uuid="0e11f80c-9afd-41ee-91ed-5db389e07bd9"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="11" width="46" height="20" forecolor="#FFFFFF" uuid="ce95ef82-34eb-4ec8-9fee-a8e8e6de9551"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
+				<reportElement x="345" y="25" width="44" height="20" forecolor="#FFFED1" uuid="21ea56b0-ccbf-47ec-815f-94426c4e8843"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Q." + $F{precioDocena}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="403" y="11" width="100" height="20" forecolor="#FFFFFF" uuid="119de8e2-8f73-4c74-9830-4f7edf0a1893"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				<reportElement x="433" y="25" width="45" height="20" forecolor="#FFFED1" uuid="db82c62c-3f3c-4b6b-8cd0-525fa2e5c02b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Q." + $F{precioMayor}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="59" y="25" width="100" height="20" forecolor="#FFFED1" uuid="61edb04f-b6f3-412f-8bdf-6ff04517cb76"/>
+				<textFieldExpression><![CDATA[$F{nombreProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="25" width="53" height="20" forecolor="#FFFED1" uuid="583071c6-065a-4b24-ab7f-178f3d93185d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Q." + $F{precioUnitario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="59" y="49" width="435" height="1" forecolor="#FFFED1" uuid="90251ac1-30fc-4459-a822-5e6af22459b0"/>
+			</line>
 		</band>
-	</columnHeader>
+	</detail>
 </jasperReport>

@@ -296,7 +296,6 @@ public class MenuProductosController implements Initializable {
         registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
         registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
         registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
-        
 
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{CALL sp_ActualizarProducto(?,?,?,?,?,?,?,?)}");
@@ -319,12 +318,17 @@ public class MenuProductosController implements Initializable {
                 btnEliminarPr.setText("Cancelar");
                 btnEditarCPr.setDisable(true);
                 btnReportesPr.setDisable(true);
+                txtPrecioUnitario.setEditable(false);
+                txtPrecioDocena.setEditable(false);
+                txtPrecioMayor.setEditable(false);
+                txtExistencia.setEditable(false);
                 tipoDeOperacion = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
                 guardarProducto();
                 desactivarControles();
                 limpiarControles();
+                cargarDatosProductos();
                 btnAgregarPr.setText("Agregar");
                 btnEliminarPr.setText("Eliminar");
                 btnEditarCPr.setDisable(false);
@@ -382,7 +386,7 @@ public class MenuProductosController implements Initializable {
                 break;
             default:
                 if (tblProductos.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminación del registro", "Eliminar Empleado?",
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirma la eliminación del registro", "Eliminar Producto?",
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {

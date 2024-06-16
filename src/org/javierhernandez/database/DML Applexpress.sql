@@ -312,11 +312,14 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL sp_AgregarProveedor(1, '1234567890', 'Proveedor 1', 'ApellidoProveedor 1', 'Dirección Proveedor 1', 'Razón Social 1', 'Contacto Principal 1', 'www.paginaweb1.com');
-CALL sp_AgregarProveedor(2, '0987654321', 'Proveedor 2', 'ApellidoProveedor 2', 'Dirección Proveedor 2', 'Razón Social 2', 'Contacto Principal 2', 'www.paginaweb2.com');
-CALL sp_AgregarProveedor(3, '9876543210', 'Proveedor 3', 'ApellidoProveedor 3', 'Dirección Proveedor 3', 'Razón Social 3', 'Contacto Principal 3', 'www.paginaweb3.com');
-CALL sp_AgregarProveedor(4, '0123456789', 'Proveedor 4', 'ApellidoProveedor 4', 'Dirección Proveedor 4', 'Razón Social 4', 'Contacto Principal 4', 'www.paginaweb4.com');
-CALL sp_AgregarProveedor(5, '1122334455', 'Proveedor 5', 'ApellidoProveedor 5', 'Dirección Proveedor 5', 'Razón Social 5', 'Contacto Principal 5', 'www.paginaweb5.com');
+CALL sp_AgregarProveedor(1, '1234567890', 'Lima & Álvarez', 'Alias1', 'Calle Falsa 123', 'Lima & Álvarez S.A. de C.V.', 'Javier', 'www.limayalvarez.com');
+CALL sp_AgregarProveedor(2, '0987654321', 'Juguetes Vikingos', 'Alias2', 'Avenida Siempre Viva 456', 'Juguetes Vikingos S.A.', 'Maria', 'www.juguetesvikingos.com');
+CALL sp_AgregarProveedor(3, '1122334455', 'García & Asociados', 'Alias3', 'Boulevard de los Sueños 789', 'García & Asociados S.L.', 'Pablo', 'www.garciayasociados.com');
+CALL sp_AgregarProveedor(4, '3344556677', 'Restaurante Chilangolandia', 'Alias4', 'Calle Luna 101', 'Restaurante Chilangolandia Ltd.', 'Oscar', 'www.chilangolandia.com');
+CALL sp_AgregarProveedor(5, '2233445566', 'Pérez & Hijos', 'Alias5', 'Avenida Sol 202', 'Pérez & Hijos Inc.', 'Melany', 'www.perezhehijos.com');
+CALL sp_AgregarProveedor(6, '4455667788', 'Tech Solutions', 'Alias6', 'Calle Estrella 303', 'Tech Solutions Corp.', 'Angel', 'www.techsolutions.com');
+CALL sp_AgregarProveedor(7, '5566778899', 'Martínez y Compañía', 'Alias7', 'Avenida Cometa 404', 'Martínez y Compañía S.A.', 'Fatima', 'www.martinezycia.com');
+
 
 -- Listar Proveedor
 DELIMITER $$
@@ -391,12 +394,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL sp_AgregarProducto(1, 'Producto 1', 1, 1);
-CALL sp_AgregarProducto(2, 'Producto 2', 2, 2);
-CALL sp_AgregarProducto(3, 'Producto 3', 3, 3);
-CALL sp_AgregarProducto(4, 'Producto 4', 4, 4);
-CALL sp_AgregarProducto(5, 'Producto 5', 5, 5);
-
 
 -- Listar Producto
 DELIMITER $$
@@ -462,13 +459,16 @@ END $$
 DELIMITER ;
 
 -- Eliminar Producto 
-DELIMITER &&
-CREATE PROCEDURE sp_eliminarproducto(IN IDProd INT)
-BEGIN
-	DELETE FROM DetalleCompra WHERE DetalleCompra.IDProducto=IDProd;
-    DELETE FROM Productos WHERE Productos.IDProducto=IDProd;
-END &&
+DELIMITER && 
+CREATE PROCEDURE sp_eliminarProducto(IN IDProd INT) 
+BEGIN 
+	DELETE FROM DetalleFactura WHERE DetalleFactura.IDProducto = IDProd; 
+    DELETE FROM DetalleCompra WHERE DetalleCompra.IDProducto = IDProd; 
+    DELETE FROM Productos WHERE Productos.IDProducto = IDProd; 
+END && 
 DELIMITER ;
+
+
 
 ----------------------------------------- Detalle Compra
 -- Agregar Detalle Compra
@@ -480,11 +480,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL sp_AgregarDetalleCompra(1, 10.50, 5, 1, 1);
-CALL sp_AgregarDetalleCompra(2, 15.75, 3, 2, 1);
-CALL sp_AgregarDetalleCompra(3, 20.00, 2, 3, 2);
-CALL sp_AgregarDetalleCompra(4, 12.99, 4, 4, 3);
-CALL sp_AgregarDetalleCompra(5, 8.50, 6, 5, 4);
 
 
 -- Listar Detalle Compra
@@ -533,9 +528,9 @@ DELIMITER ;
 
 -- Eliminar Detalle Compra
 DELIMITER $$
-CREATE PROCEDURE sp_EliminarDetalleCompra(IN IdDC INT)
+CREATE PROCEDURE sp_EliminarDetalleCompra(IN IDProd INT)
 BEGIN
-	DELETE FROM DetalleCompra WHERE DetalleCompra.IDDetalleCompra = IdDC;
+	DELETE FROM DetalleCompra WHERE DetalleCompra.IDDetalleCompra = IDProd;
 END$$
 DELIMITER ;
 
@@ -701,17 +696,12 @@ DELIMITER ;
 -- Detalle Fatura 
 -- Agregar Detalle Factura 
 DELIMITER $$
-CREATE PROCEDURE sp_AgregarDetalleFactura(IN IdDF INT, IN cant INT, IN IdF INT, IN IdPro INT)
+CREATE PROCEDURE sp_AgregarDetalleFactura(IN IdDF INT, IN cant INT, IN IdF INT, IN IdProd INT)
 BEGIN
     INSERT INTO DetalleFactura (IDDetalleFactura, cantidad, IDDeFactura, IDProducto)
-    VALUES (IdDF, cant, IdF, IdPro);
+    VALUES (IdDF, cant, IdF, IDProd);
 END $$
 DELIMITER ;
-CALL sp_AgregarDetalleFactura(1, 2, 1, 1);
-CALL sp_AgregarDetalleFactura(2, 3, 1, 2);
-CALL sp_AgregarDetalleFactura(3, 1, 2, 3);
-CALL sp_AgregarDetalleFactura(4, 5, 3, 4);
-CALL sp_AgregarDetalleFactura(5, 4, 4, 5);
 
 -- Listar Detalle Factura
 DELIMITER $$
@@ -744,14 +734,14 @@ DELIMITER ;
 
 -- Actualizar Detalle Factura
 DELIMITER $$
-CREATE PROCEDURE sp_ActualizarDetalleFactura(IN IdDF INT, IN Unit DECIMAL(10,2),IN cant INT, IN IdF INT, IN IdPro INT)
+CREATE PROCEDURE sp_ActualizarDetalleFactura(IN IdDF INT, IN Unit DECIMAL(10,2),IN cant INT, IN IdF INT, IN IDProd INT)
 BEGIN
     UPDATE DetalleFactura
     SET 
     DetalleFactura.precioUnitario = Unit, 
 	DetalleFactura.cantidad = cant,
 	DetalleFactura.IDDeFactura = IdF,
-	DetalleFactura.IDProducto = IdPro
+	DetalleFactura.IDProducto = IDProd
     WHERE DetalleFactura.IDDetalleFactura = IdDF;
 END $$
 DELIMITER ;
@@ -766,12 +756,12 @@ DELIMITER ;
 
 -- traer el precio unitario
 delimiter //
-create function fn_TraerPrecioUnitario(IDPro int) returns decimal(10,2)
+create function fn_TraerPrecioUnitario(IDProd int) returns decimal(10,2)
 deterministic
 begin
 	declare precio decimal(10,2);
 	set precio= (select DetalleCompra.costoUnitario from DetalleCompra
-    where DetalleCompra.IDProducto=IDPro limit 1);
+    where DetalleCompra.IDProducto=IDProd limit 1);
 	return precio;
 end //
 
@@ -792,13 +782,13 @@ delimiter ;
 
 -- actualizar DetalleFactura
 delimiter $$
-create procedure sp_actualizarPrecioDetalleFactura(in IDPro varchar(15), in precUnit decimal(10,2) )
+create procedure sp_actualizarPrecioDetalleFactura(in IDProd varchar(15), in precUnit decimal(10,2) )
 begin
 	update DetalleFactura 
 	set 
 		DetalleFactura.precioUnitario=precUnit
     where
-		DetalleFactura.IDProducto=IDPro;
+		DetalleFactura.IDProducto=IDProd;
 end $$
 delimiter ;
 
@@ -982,23 +972,23 @@ delimiter ;
 -- existencias
 -- proceso almacenado
 delimiter $$
-create procedure sp_actualizarExistenciaProductos(in IdPro varchar(15), in exist int )
+create procedure sp_actualizarExistenciaProductos(in IDProd varchar(15), in exist int )
 begin
 	update Productos 
 	set 
 		Productos.existencia=exist
     where
-		Productos.IDProducto=IdPro;
+		Productos.IDProducto=IDProd;
 end $$
 delimiter ;
 
 -- traer el precio unitario
 delimiter //
-create function fn_TraerExistencias(IdPro int) returns int
+create function fn_TraerExistencias(IDProd int) returns int
 deterministic
 begin
 	declare existencias int;
-	set existencias= (select existencia from Productos where IDProducto=IdPro limit 1);
+	set existencias= (select existencia from Productos where IDProducto=IDProd limit 1);
 	return existencias;
 end //
 
@@ -1053,3 +1043,5 @@ CALL sp_BuscarDetalleCompra(1);
 CALL sp_BuscarEmpleados(1);
 CALL sp_BuscarFactura(1);
 CALL sp_BuscarDetalleFactura(1);
+
+CALL sp_eliminarProducto(5);

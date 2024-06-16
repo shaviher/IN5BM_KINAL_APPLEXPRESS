@@ -204,7 +204,6 @@ public class MenuDetalleFacturaController implements Initializable {
                 activarControles();
                 btnEliminar.setText("Cancelar");
                 btnAgregar.setText("Guardar");
-                txtCod.setEditable(false);
                 btnReporte.setDisable(true);
                 btnEditar.setDisable(true);
                 btnRegresar.setDisable(true);
